@@ -19,10 +19,10 @@ public class BaseEntity implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     protected Long id;
     @CreationTimestamp
-    @Column(name = "dateCreated")
-    protected LocalDateTime dateCreated;
-    @Column(name = "lastModified")
-    protected LocalDateTime lastModified;
+    @Column(name = "created_on")
+    protected LocalDateTime createdOn;
+    @Column(name = "updated_on")
+    protected LocalDateTime updatedOn;
      @Column(name = "pid", updatable = false, nullable = false, columnDefinition =
      "VARCHAR(36)")
      @Type(type = "uuid-char")
