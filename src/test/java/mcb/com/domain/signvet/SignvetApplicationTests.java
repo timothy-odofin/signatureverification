@@ -1,4 +1,4 @@
-package mcb.com.signvet;
+package mcb.com.domain.signvet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

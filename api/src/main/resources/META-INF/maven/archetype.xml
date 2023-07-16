@@ -1,5 +1,5 @@
 <archetype>
-  <id>domain</id>
+  <id>api</id>
   <sources>
     <source>src/main/java/App.java</source>
   </sources>

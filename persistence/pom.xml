@@ -7,6 +7,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>persistence</artifactId>
-    <name>Archetype - persistence</name>
-    <url>http://maven.apache.org</url>
+    <name>persistence</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+    </dependencies>
 </project>
