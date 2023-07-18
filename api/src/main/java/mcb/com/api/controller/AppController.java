@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -23,7 +24,6 @@ public class AppController {
     public ResponseEntity<ApiResponse<List<EventSourceResponse>>> listEvents(@RequestParam(value=PAGE, defaultValue = DEFAULT_PAGE) int page,
                                                                       @RequestParam(value=SIZE, defaultValue = DEFAULT_SIZE) int size){
         return appService.listEvents(page, size);
-
     }
     @GetMapping(LIST_USERS_PATH)
     public ResponseEntity<ApiResponse<List<UsersResponse>>> listUsers(@RequestParam(value=PAGE, defaultValue = DEFAULT_PAGE) int page,
@@ -39,9 +39,8 @@ public class AppController {
         return appService.validateSignature(payload);
     }
     @GetMapping(CURRENCY_PATH)
-    public ResponseEntity<ApiResponse<List<String>>> listCurrency(){
+    public ResponseEntity<ApiResponse<Set<String>>> listCurrency(){
         return appService.listCurrency();
-
     }
     @GetMapping(LIST_EVENT_SOURCE_SUMMARY_PATH)
    public ResponseEntity<ApiResponse<List<EventSourceSummaryResponse>>> listEventSummary(){

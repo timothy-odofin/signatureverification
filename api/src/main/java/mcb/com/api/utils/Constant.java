@@ -7,4 +7,6 @@ public class Constant {
     public final static String SIZE="size";
     public final  static String DEFAULT_PAGE="0";
     public final static String DEFAULT_SIZE="50";
+    public final static String YES="Yes";
+    public final static String NO="No";
 }

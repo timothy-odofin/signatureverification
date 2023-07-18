@@ -30,7 +30,7 @@ public class EventSourceSummaryRepo  {
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             EventSourceSummaryResponse dto = new EventSourceSummaryResponse();
             dto.setLabel(rs.getString("label"));
-            dto.setFrequency(rs.getLong("count"));
+            dto.setFrequency(rs.getLong("frequency"));
             return dto;
         });
     }

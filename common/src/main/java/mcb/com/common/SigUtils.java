@@ -26,8 +26,10 @@ public class SigUtils {
         sign.update(name.getBytes());
         return sign.sign();
     }
-    public static String imageToBase64PDF(BufferedImage image) throws IOException {
+    public static String generateBase64PdfSignature(String name) {
+
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            BufferedImage image = binaryToImage(generateDigitalSignature(name));
             // Create a PDF document
             PDDocument document = new PDDocument();
             PDPage page = new PDPage();
@@ -44,6 +46,8 @@ public class SigUtils {
 
             // Convert the PDF to a Base64 string
             return Base64.getEncoder().encodeToString(baos.toByteArray());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
     // Convert the binary digital signature to a graphical representation as an image
@@ -72,12 +76,31 @@ public class SigUtils {
     }
 
     // Convert the image to a Base64-encoded string
-    private static String imageToBase64(BufferedImage image) throws Exception {
+    public static String generateBase64ImageSignature(String name) throws Exception {
+        BufferedImage image =binaryToImage(generateDigitalSignature(name));
         java.io.ByteArrayOutputStream os = new java.io.ByteArrayOutputStream();
         javax.imageio.ImageIO.write(image, "png", os);
         return Base64.getEncoder().encodeToString(os.toByteArray());
     }
-    public static boolean compareSignatures(byte[] signature1, byte[] signature2) {
-        return Arrays.equals(signature1, signature2);
+    public static String generateBase64ImageSignature(byte[] bytes) throws Exception {
+        BufferedImage image =binaryToImage(bytes);
+        java.io.ByteArrayOutputStream os = new java.io.ByteArrayOutputStream();
+        javax.imageio.ImageIO.write(image, "png", os);
+        return Base64.getEncoder().encodeToString(os.toByteArray());
+    }
+    public static SignatureValidationInternal compareSignatures(String existingRecord, String newRecord) {
+
+        byte[] signature1 = new byte[0];
+        byte[] signature2 = new byte[0];
+        SignatureValidationInternal signatureValidationInternal;
+        try {
+            signature1 = generateDigitalSignature(existingRecord);
+            signature2  = generateDigitalSignature(newRecord);
+            signatureValidationInternal= new SignatureValidationInternal(generateBase64ImageSignature(signature2),Arrays.equals(signature1, signature2));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return signatureValidationInternal;
     }
 }
