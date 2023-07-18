@@ -29,6 +29,7 @@
         <pdfbox-version>2.0.28</pdfbox-version>
         <mapper-version>2.3.5</mapper-version>
         <jwt-version>0.9.1</jwt-version>
+        <swagger-version>2.9.2</swagger-version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -48,7 +49,22 @@
                 <artifactId>persistence</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger-version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-bean-validators</artifactId>
+                <version>${swagger-version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
