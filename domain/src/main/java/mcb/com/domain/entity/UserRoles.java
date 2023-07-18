@@ -11,10 +11,10 @@ import javax.persistence.ManyToOne;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class UserRoles extends BaseEntity {
-    @JoinColumn(name = "roleId", referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne
     private Roles role;
-    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private Users user;
 }
