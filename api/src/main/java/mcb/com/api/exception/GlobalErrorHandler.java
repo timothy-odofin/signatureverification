@@ -45,7 +45,6 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         for (ObjectError error : exception.getBindingResult().getGlobalErrors()) {
             errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
-        logError(exception, webRequest);
         return ResponseEntity.ok(new ApiResponse<>(FAIL,HttpStatus.BAD_REQUEST.value() , String.join(",", errors))
         );
 
@@ -84,7 +83,6 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ApiResponse<String>> handleMethodArgumentTypeMismatch(
             MethodArgumentTypeMismatchException exception, WebRequest webRequest) {
-        logError(exception, webRequest);
         String error =
                 exception.getName() + " should be of type " + exception.getRequiredType().getName();
         return exceptionMessage(exception, webRequest, HttpStatus.BAD_REQUEST.value(), error);
