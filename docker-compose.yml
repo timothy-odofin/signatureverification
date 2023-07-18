@@ -8,4 +8,4 @@ services:
       args:
         JAVA_VERSION: 17  # Set the Java version as an argument to be used in Dockerfile
     ports:
-      - "8080:8080"  # Map container port 8080 to host port 8080
+      - "9599:9599"  # Map container port 8080 to host port 8080

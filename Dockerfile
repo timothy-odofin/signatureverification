@@ -23,7 +23,7 @@ WORKDIR /app
 COPY --from=build /app/api/target/api-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port that the Spring Boot app is running on
-EXPOSE 8080
+EXPOSE 9599
 
 # Define the command to run your Spring Boot app
 CMD ["java", "-jar", "app.jar"]
