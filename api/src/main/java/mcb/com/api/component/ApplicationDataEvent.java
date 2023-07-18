@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import mcb.com.api.utils.Constant;
 import mcb.com.domain.entity.EventSource;
 import mcb.com.domain.entity.Roles;
+import mcb.com.domain.entity.UserRoles;
 import mcb.com.domain.entity.Users;
 import mcb.com.persistence.EventSourceRepo;
 import mcb.com.persistence.RolesRepo;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -40,27 +42,35 @@ public class ApplicationDataEvent implements ApplicationListener<ApplicationRead
         Roles roles = new Roles();
         roles.setRoleName("ADMINISTRATOR");
         roles.setDescription("User with higher authority");
+        roles.setPid(UUID.randomUUID());
         Roles role2 = new Roles();
         role2.setRoleName("USER");
+        role2.setPid(UUID.randomUUID());
         role2.setDescription("Ordinary user with view only");
 
         Roles role3 = new Roles();
-        role2.setRoleName("SUPER");
-        role2.setDescription("Overall boss");
-        rolesRepo.saveAll(List.of(roles, role2, role3));
+        role3.setRoleName("SUPER");
+        role3.setPid(UUID.randomUUID());
+        role3.setDescription("Overall boss");
+        rolesRepo.saveAll(List.of(roles,  role3,role2));
         loadData();
     }
     private void loadData(){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             // Read the JSON file from the classpath
+            log.info("Loading event_source.json and user.json");
             ClassPathResource resource = new ClassPathResource("event_source.json");
             ClassPathResource userResource = new ClassPathResource("user.json");
             List<EventSource> eventSources = objectMapper.readValue(resource.getInputStream(),
-                    new TypeReference<List<EventSource>>() {});
+                    new TypeReference<>() {});
             List<Users> userList = objectMapper.readValue(userResource.getInputStream(),
-                    new TypeReference<List<Users>>() {});
+                    new TypeReference<>() {});
+            log.info("Completed loading of event_source.json and user.json");
+            log.info("Created respective data in the database");
+            saveUser(userList);
             eventSourceRepo.saveAll(eventSources);
+            log.info("Completed initialization of various tables with data read from the json");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,7 +80,21 @@ public class ApplicationDataEvent implements ApplicationListener<ApplicationRead
             user.setPassword(passwordEncoder.encode("test"));
             user = usersRepo.save(user);
             if(user.getAccountStatus().equals(Constant.HOD)){
-
+                UserRoles userRoles = new UserRoles();
+                userRoles.setPid(UUID.randomUUID());
+                userRoles.setUser(user);
+                userRoles.setRole(new Roles(1));
+                UserRoles userRoles2 = new UserRoles();
+                userRoles2.setPid(UUID.randomUUID());
+                userRoles2.setUser(user);
+                userRoles2.setRole(new Roles(2));
+                userRolesRepo.saveAll(List.of(userRoles, userRoles2));
+            }else{
+                UserRoles userRoles = new UserRoles();
+                userRoles.setPid(UUID.randomUUID());
+                userRoles.setUser(user);
+                userRoles.setRole(new Roles(3));
+                userRolesRepo.save(userRoles);
             }
         }
 

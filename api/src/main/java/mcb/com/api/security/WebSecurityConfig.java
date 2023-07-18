@@ -32,6 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/v2/api-docs/**",
             "/swagger-ui.html",
             "/webjars/**", "/auth/**",
+            "/login.do",
+            "/h2-console/**"
             // other public endpoints of your API may be appended to this array
     };
     @Resource(name = "userDetailsService")

@@ -38,6 +38,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         refreshToken.setUser(user);
         refreshToken.setExpiryDate(Instant.now().plus(REFRESH_TOKEN_VALIDITY, ChronoUnit.HOURS));
         refreshToken.setToken(UUID.randomUUID().toString());
+        refreshToken.setPid(UUID.randomUUID());
         Optional<RefreshToken> refreshToken1 = refreshTokenRepo.findByUser(user);
         RefreshToken dbToken = null;
         if (refreshToken1.isPresent()) {

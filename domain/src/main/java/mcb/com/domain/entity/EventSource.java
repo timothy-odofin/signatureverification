@@ -49,7 +49,7 @@ public class EventSource  extends BaseEntity{
     @Type(type = "uuid-char")
     private UUID createdBy;
 
-    @Column(name = "updated_by", updatable = false, nullable = false, columnDefinition =
+    @Column(name = "updated_by", columnDefinition =
             "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID updatedBy;

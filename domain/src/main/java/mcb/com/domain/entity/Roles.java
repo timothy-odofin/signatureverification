@@ -14,7 +14,7 @@ public class Roles extends BaseEntity{
     public Roles(){
         super();
     }
-    public Roles(Long id){
+    public Roles(long id){
         super();
         this.id= id;
 
