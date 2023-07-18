@@ -1,8 +1,10 @@
 package mcb.com.api.controller;
 
+import lombok.RequiredArgsConstructor;
+import mcb.com.api.service.LoginService;
 import mcb.com.domain.dto.request.Login;
 import mcb.com.domain.dto.response.ApiResponse;
-import mcb.com.domain.dto.response.JwtResponse;
+import mcb.com.domain.dto.response.LoginResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +16,11 @@ import static mcb.com.api.utils.MessageUtil.SUCCESS;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class EntranceController {
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse> login(@RequestBody Login payload){
-        return ResponseEntity.ok(new ApiResponse(SUCCESS, HttpStatus.OK.value(), new JwtResponse()));
-
+    private final LoginService loginService;
+    @PostMapping
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody Login payload){
+        return loginService.login(payload);
     }
 }
