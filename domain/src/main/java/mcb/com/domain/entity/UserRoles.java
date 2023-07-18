@@ -1,6 +1,5 @@
 package mcb.com.domain.entity;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
