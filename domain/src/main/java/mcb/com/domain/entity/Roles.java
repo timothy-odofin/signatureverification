@@ -11,4 +11,13 @@ import javax.persistence.Entity;
 public class Roles extends BaseEntity{
     private String roleName;
     private String description;
+    public Roles(){
+        super();
+    }
+    public Roles(Long id){
+        super();
+        this.id= id;
+
+    }
+
 }

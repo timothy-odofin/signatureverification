@@ -2,6 +2,7 @@ package mcb.com.domain.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;

@@ -27,5 +27,7 @@ public class BaseEntity implements Serializable {
      "VARCHAR(36)")
      @Type(type = "uuid-char")
      private UUID pid;
-
+    public BaseEntity() {
+        // This is important to have a no-argument constructor for JPA entities
+    }
 }

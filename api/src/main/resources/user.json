@@ -1,0 +1,42 @@
+[
+  {
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@example.com",
+    "username": "john_smith123",
+    "pid": "8f016e8a-ffbe-4217-af9a-880ebad7d169",
+    "businessUnit": "BU1",
+    "active": true,
+    "accountStatus": "HOD"
+  },
+  {
+    "firstName": "Emily",
+    "lastName": "Johnson",
+    "email": "emily.johnson@example.com",
+    "username": "emily_89",
+    "pid": "a01f92d3-cc13-4d69-b0de-2537e0e6070a",
+    "businessUnit": "BU2",
+    "active": false,
+    "accountStatus": "MARKETING"
+  },
+  {
+    "firstName": "Michael",
+    "lastName": "Brown",
+    "email": "michael.brown@example.com",
+    "username": "brownmike",
+    "pid": "6574d9e3-8623-452f-b3c3-6ebc98eab0d2",
+    "businessUnit": "BU3",
+    "active": true,
+    "accountStatus": "HOD"
+  },
+  {
+    "firstName": "Sophia",
+    "lastName": "Miller",
+    "email": "sophia.miller@example.com",
+    "username": "sophia_m",
+    "pid": "f3f4883e-4e25-4b56-8f3a-78452a515f8c",
+    "businessUnit": "BU1",
+    "active": true,
+    "accountStatus": "MARKETING"
+  }
+]
