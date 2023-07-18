@@ -24,12 +24,11 @@ public class EventSource  extends BaseEntity{
     private String comments;
     @Column(name = "transaction_currency", nullable = false)
     private String transactionCurrency;
-
     @Column(name = "transaction_amount", nullable = false)
-    private String transactionAmount;
+    private Double transactionAmount;
 
     @Column(name = "amount_in_mur", nullable = false)
-    private String amountInMur;
+    private Double amountInMur;
 
     @Column(name = "debit_account_number", nullable = false)
     private String debitAccountNumber;
