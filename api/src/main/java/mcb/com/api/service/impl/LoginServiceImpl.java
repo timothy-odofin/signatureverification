@@ -25,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
     private String tokenType;
 
     @Override
-    public ResponseEntity<ApiResponse<LoginResponse>> login(Login payload) {
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid Login payload) {
         Users existingUser = usersRepo.findByUsername(payload.getUsername()).orElseThrow(()->new UserNotFoundException(MessageUtil.USER_NOT_FOUND));
         if(!passwordEncoder.matches(payload.getPassword(), existingUser.getPassword()))
             throw new  UserNotFoundException(MessageUtil.USER_NOT_FOUND);
