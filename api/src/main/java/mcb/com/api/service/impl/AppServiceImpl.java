@@ -36,7 +36,7 @@ public class AppServiceImpl implements AppService {
     }
 
     @Override
-    public ResponseEntity<ApiResponse<SignatureValidationResponse>> retrieveSignatureInPdf(ValidateSignatureRequest payload) {
+    public ResponseEntity<ApiResponse<SignatureValidationResponse>> validateSignature(ValidateSignatureRequest payload) {
         return null;
     }
 

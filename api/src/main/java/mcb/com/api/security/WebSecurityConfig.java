@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import javax.annotation.Resource;
 
+import static mcb.com.api.utils.ApiPath.ACCOUNT_PATH;
+
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**", "/auth/**",
             "/login.do",
-            "/h2-console/**"
+            "/h2-console/**",
+            ACCOUNT_PATH+"/**"
             // other public endpoints of your API may be appended to this array
     };
     @Resource(name = "userDetailsService")

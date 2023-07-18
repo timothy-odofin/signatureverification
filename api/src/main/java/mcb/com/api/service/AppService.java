@@ -11,7 +11,7 @@ public interface AppService {
     ResponseEntity<ApiResponse<List<EventSourceResponse>>> listEvents(int page, int size);
     ResponseEntity<ApiResponse<List<UsersResponse>>> listUsers(int page, int size);
     ResponseEntity<ApiResponse<String>> retrieveSignatureInPdf(UUID eventPid);
-    ResponseEntity<ApiResponse<SignatureValidationResponse>> retrieveSignatureInPdf(ValidateSignatureRequest payload);
+    ResponseEntity<ApiResponse<SignatureValidationResponse>> validateSignature(ValidateSignatureRequest payload);
     ResponseEntity<ApiResponse<List<String>>> listCurrency();
     ResponseEntity<ApiResponse<List<EventSourceSummaryResponse>>> listEventSummary();
 
