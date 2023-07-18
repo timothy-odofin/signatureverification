@@ -5,6 +5,7 @@ import static mcb.com.api.utils.Constant.*;
 
 import lombok.RequiredArgsConstructor;
 import mcb.com.api.service.AppService;
+import mcb.com.domain.dto.request.EventSourceUpdateRequest;
 import mcb.com.domain.dto.request.ValidateSignatureRequest;
 import mcb.com.domain.dto.response.*;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class AppController {
         return appService.listUsers(page, size);
     }
     @GetMapping(RETRIEVE_SIGNATURE_PATH)
-    public ResponseEntity<ApiResponse<String>> retrieveSignatureInPdf(@RequestParam(EVENT_PID) UUID eventPid){
+    public ResponseEntity<ApiResponse<EventSourceResponse>> retrieveSignatureInPdf(@RequestParam(EVENT_PID) UUID eventPid){
         return appService.retrieveSignatureInPdf(eventPid);
     }
     @PostMapping(VALIDATE_SIGNATURE_PATH)
@@ -45,6 +46,11 @@ public class AppController {
     @GetMapping(LIST_EVENT_SOURCE_SUMMARY_PATH)
    public ResponseEntity<ApiResponse<List<EventSourceSummaryResponse>>> listEventSummary(){
         return appService.listEventSummary();
+    }
+    @PostMapping(UPDATE_EVENT_SOURCE_PATH)
+ public   ResponseEntity<ApiResponse<String>> updateEventSource(@PathVariable(EVENT_PID) UUID eventSourcePid,
+                                                          @Valid @RequestBody EventSourceUpdateRequest payload){
+        return appService.updateEventSource(eventSourcePid, payload);
     }
 
 }

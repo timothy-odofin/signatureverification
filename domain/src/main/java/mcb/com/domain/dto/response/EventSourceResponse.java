@@ -37,4 +37,5 @@ public class EventSourceResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime updatedOn;
     private UUID pid;
+    private String signBase64Pdf;
 }

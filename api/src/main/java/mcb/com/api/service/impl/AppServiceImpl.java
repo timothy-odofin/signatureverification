@@ -6,6 +6,7 @@ import mcb.com.api.service.AppService;
 import mcb.com.api.utils.MessageUtil;
 import mcb.com.common.SigUtils;
 import mcb.com.common.SignatureValidationInternal;
+import mcb.com.domain.dto.request.EventSourceUpdateRequest;
 import mcb.com.domain.dto.request.ValidateSignatureRequest;
 import mcb.com.domain.dto.response.*;
 import mcb.com.domain.dto.response.exception.RecordNotFounException;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Set;
@@ -58,18 +60,17 @@ private EventSource findByPid(UUID eventPid){
     }
 
     @Override
-    public ResponseEntity<ApiResponse<String>> retrieveSignatureInPdf(UUID eventPid) {
+    public ResponseEntity<ApiResponse<EventSourceResponse>> retrieveSignatureInPdf(UUID eventPid) {
         EventSource eventSource =findByPid(eventPid);
-        return ResponseEntity.ok(new ApiResponse<>(SUCCESS,HttpStatus.OK.value(), SigUtils.generateBase64PdfSignature(eventSource.getDebitAccountNumber())));
+        EventSourceResponse eventSourceResponse =Mapper.convertObject(eventSource,EventSourceResponse.class);
+        eventSourceResponse.setSignBase64Pdf(SigUtils.generateBase64PdfSignature(eventSource.getDebitAccountNumber()));
+        return ResponseEntity.ok(new ApiResponse<>(SUCCESS,HttpStatus.OK.value(),eventSourceResponse ));
     }
-
     @Override
     public ResponseEntity<ApiResponse<SignatureValidationResponse>> validateSignature(ValidateSignatureRequest payload) {
         EventSource eventSource =findByPid(payload.getEventSourcePid());
         SignatureValidationInternal validSign =SigUtils.compareSignatures(eventSource.getDebitAccountNumber(), payload.getEventAccountNumber());
-        eventSource.setVerified(validSign.isValid()?YES:NO);
-        eventSourceRepo.save(eventSource);
-        return ResponseEntity.ok(new ApiResponse<>(validSign.isValid()?SUCCESS:FAIL,HttpStatus.OK.value(),
+        return ResponseEntity.ok(new ApiResponse<>(SUCCESS,HttpStatus.OK.value(),
                 SignatureValidationResponse.builder()
                         .signImage(validSign.getSignImage())
                         .status(validSign.isValid()? SIGNATURE_VALIDATION_SUCCESSFUL:SIGNATURE_VALIDATION_FAIL)
@@ -84,6 +85,11 @@ private EventSource findByPid(UUID eventPid){
     @Override
     public ResponseEntity<ApiResponse<List<EventSourceSummaryResponse>>> listEventSummary() {
         return ResponseEntity.ok(new ApiResponse<>(SUCCESS,HttpStatus.OK.value(), eventSourceSummaryRepo.getEventSourceSummary()));
+    }
+
+    public ResponseEntity<ApiResponse<String>> updateEventSource(UUID eventPid, EventSourceUpdateRequest payload){
+        EventSource eventSource = findByPid(eventPid);
+        return null;
 
     }
 }
