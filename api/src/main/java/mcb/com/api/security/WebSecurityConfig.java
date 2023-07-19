@@ -35,8 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**", "/auth/**",
             "/login.do",
-            "/h2-console/**",
-            ACCOUNT_PATH+"/**"
+            "/h2-console/**"
             // other public endpoints of your API may be appended to this array
     };
     @Resource(name = "userDetailsService")
@@ -55,6 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers( "/account/event-sources/update/**", "/account/signature/validate/**","/account/users/**")
+                .access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_SUPER')")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint).and()
@@ -62,8 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
-//    .antMatchers( "/profile/**")
-//                .access("hasRole('ROLE_ADMINISTRATOR')")
+
 
 
     @Bean
