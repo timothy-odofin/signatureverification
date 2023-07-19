@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class DtoMapper {
     public static void mapToEventSource(EventSource mapTo, EventSourceUpdateRequest mapFrom){
         mapTo.setVerified(mapFrom.getVerified());
-        mapTo.setAmountInMur(mapFrom.getAmountInMur()==null?mapTo.getAmountInMur():mapFrom.getAmountInMur());
+        mapTo.setAmountInMur(mapFrom.getAmountInMur()==0?mapTo.getAmountInMur():mapFrom.getAmountInMur());
         mapTo.setComments(mapFrom.getComments() !=null? mapFrom.getComments() : mapTo.getComments());
         mapTo.setDebitAccountCcy(mapFrom.getDebitAccountCcy() !=null? mapFrom.getDebitAccountCcy() : mapTo.getDebitAccountCcy());
         mapTo.setDebitAccountNumber(mapFrom.getDebitAccountNumber()!=null? mapFrom.getDebitAccountNumber() : mapTo.getDebitAccountNumber());

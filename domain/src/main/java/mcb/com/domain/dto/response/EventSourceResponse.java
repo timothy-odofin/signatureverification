@@ -1,14 +1,18 @@
 package mcb.com.domain.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.Type;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class EventSourceResponse {
 
     private String businessKey;
