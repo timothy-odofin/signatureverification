@@ -1,7 +1,10 @@
 package mcb.com.api.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import mcb.com.api.mapper.DtoMapper;
 import mcb.com.api.mapper.Mapper;
+import mcb.com.api.security.TokenProvider;
 import mcb.com.api.service.AppService;
 import mcb.com.api.utils.MessageUtil;
 import mcb.com.common.SigUtils;
@@ -20,22 +23,28 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static mcb.com.api.utils.Constant.*;
 import static mcb.com.api.utils.MessageUtil.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AppServiceImpl implements AppService {
     private final UsersRepo usersRepo;
     private final EventSourceRepo eventSourceRepo;
     private final EventSourceSummaryRepo eventSourceSummaryRepo;
+    private final TokenProvider tokenProvider;
+    private final HttpServletRequest httpServletRequest;
 
+private UUID getEventUser(){
+    String token = httpServletRequest.getHeader("Authorization").substring(7);
+    return UUID.fromString(tokenProvider.getPidFromToken(token));
+}
     @Override
     public ResponseEntity<ApiResponse<List<EventSourceResponse>>> listEvents(int page, int size) {
         Page<EventSource> eventSourcePage = eventSourceRepo.findAll(PageRequest.of(page,size));
@@ -89,7 +98,10 @@ private EventSource findByPid(UUID eventPid){
 
     public ResponseEntity<ApiResponse<String>> updateEventSource(UUID eventPid, EventSourceUpdateRequest payload){
         EventSource eventSource = findByPid(eventPid);
-        return null;
+        DtoMapper.mapToEventSource(eventSource, payload);
+       eventSource.setUpdatedBy(getEventUser());
+       eventSourceRepo.save(eventSource);
+        return ResponseEntity.ok(new ApiResponse<>(SUCCESS, HttpStatus.OK.value(), SIGNATURE_VALIDATION_SUCCESSFUL));
 
     }
 }

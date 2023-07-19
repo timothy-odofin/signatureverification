@@ -1,6 +1,7 @@
 package mcb.com.api.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mcb.com.api.mapper.Mapper;
 import mcb.com.api.security.TokenProvider;
 import mcb.com.api.service.LoginService;
@@ -27,12 +28,14 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static mcb.com.api.utils.MessageUtil.SUCCESS;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LoginServiceImpl implements LoginService {
     private final UsersRepo usersRepo;
     private final TokenProvider tokenProvider;
@@ -43,17 +46,18 @@ public class LoginServiceImpl implements LoginService {
     private String tokenType;
 
     @Override
-    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid Login payload) {
+    public ResponseEntity<ApiResponse<LoginResponse>> login(Login payload) {
+        log.info("##############################");
         Users existingUser = usersRepo.findByUsername(payload.getUsername()).orElseThrow(()->new UserNotFoundException(MessageUtil.USER_NOT_FOUND));
         if(!passwordEncoder.matches(payload.getPassword(), existingUser.getPassword()))
             throw new  UserNotFoundException(MessageUtil.USER_NOT_FOUND);
 
         LoginResponse loginResponse = Mapper.convertObject(existingUser, LoginResponse.class);
-        loginResponse.setToken(obtainAccessToken(payload.getUsername(),payload.getPassword()));
+        loginResponse.setToken(obtainAccessToken(payload.getUsername(),payload.getPassword(), existingUser.getPid().toString()));
         return ResponseEntity.ok(new ApiResponse<>(SUCCESS, HttpStatus.OK.value(), loginResponse));
     }
 
-    private AuthTokenInfo obtainAccessToken(String username, String password) {
+    private AuthTokenInfo obtainAccessToken(String username, String password, String pid) {
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         username,
@@ -61,13 +65,14 @@ public class LoginServiceImpl implements LoginService {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = tokenProvider.generateToken(authentication);
+        final String token = tokenProvider.generateToken(authentication, pid);
         AuthTokenInfo userToken = new AuthTokenInfo();
         userToken.setAccess_token(token);
         userToken.setScope("read");
         userToken.setToken_type(tokenType);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
         userToken.setRefresh_token(refreshToken.getToken());
+
         List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         userToken.setRoles(roles);

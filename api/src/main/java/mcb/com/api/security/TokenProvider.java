@@ -18,10 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -41,49 +38,12 @@ public class TokenProvider implements Serializable {
     @Value("${jwt.refreshExpiration}")
     public long REFRESH_TOKEN_VALIDITY;
 
-    @Value("${jwt.jwtCookieName}")
-    private String jwtCookie;
-
-    @Value("${jwt.jwtRefreshCookieName}")
-    private String jwtRefreshCookie;
-    private final UserRolesRepo userRolesRepo;
-    private final JwtUserDetailsService userDetailsService;
-
-    public ResponseCookie generateJwtCookie(CustomUserDetails userPrincipal, Instant instant) {
-        String jwt = generateTokenFromUsername(userPrincipal.getUsername(), instant);
-        return generateCookie(jwtCookie, jwt, "/api");
-    }
-
-    public String generateTokenByUserName(String username) {
-        String jwt = generateTokenFromUsername(username, Instant.now().plus(24, ChronoUnit.HOURS));
-        return jwt;
-    }
-
-    public ResponseCookie generateRefreshJwtCookie(String refreshToken) {
-        return generateCookie(jwtRefreshCookie, refreshToken, "/api/auth/refreshtoken");
-    }
-
-    public String getJwtFromCookies(HttpServletRequest request) {
-        return getCookieValueByName(request, jwtCookie);
-    }
-
-    public String getJwtRefreshFromCookies(HttpServletRequest request) {
-        return getCookieValueByName(request, jwtRefreshCookie);
-    }
-
-    public ResponseCookie getCleanJwtCookie() {
-        ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("/api").build();
-        return cookie;
-    }
-
-    public ResponseCookie getCleanJwtRefreshCookie() {
-        ResponseCookie cookie = ResponseCookie.from(jwtRefreshCookie, null).path("/api/auth/refreshtoken").build();
-        return cookie;
-    }
-
-
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
+    }
+
+    public String getPidFromToken(String token) {
+        return getClaimFromToken(token, Claims::getId);
     }
 
     public Date getExpirationDateFromToken(String token) {
@@ -114,50 +74,18 @@ public class TokenProvider implements Serializable {
 
     }
 
-    private String getAuthority(String username) {
-        return userRolesRepo.findByUserName(username).stream().filter(Objects::nonNull)
-                .map(rs -> "ROLE_" + rs.getRole().getRoleName()).collect(Collectors.joining(","));
 
 
-    }
-
-    public String generateToken(Authentication authentication) {
+    public String generateToken(Authentication authentication, String pid) {
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
+                .setId(pid)
                 .claim(AUTHORITIES_KEY, getAuthorityData(authentication))
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(Instant.now().plus(TOKEN_VALIDITY, ChronoUnit.MINUTES)))
                 .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
                 .compact();
-    }
-
-    public String generateTokenFromUsername(String username, Instant instant) {
-        return Jwts.builder().setSubject(username)
-                .claim(AUTHORITIES_KEY, getAuthority(username))
-                .setIssuedAt(new Date())
-                .setExpiration(Date.from(instant))
-                .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
-                .compact();
-    }
-
-    private ResponseCookie generateCookie(String name, String value, String path) {
-        ResponseCookie cookie = ResponseCookie.from(name, value).path(path).maxAge(24 * 60 * 60).httpOnly(true).build();
-        return cookie;
-    }
-
-    private String getCookieValueByName(HttpServletRequest request, String name) {
-        Cookie cookie = WebUtils.getCookie(request, name);
-        if (cookie != null) {
-            return cookie.getValue();
-        } else {
-            return null;
-        }
-    }
-
-    public Boolean validateToken(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUsernameFromToken(token));
-        return validateToken(token, userDetails);
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {

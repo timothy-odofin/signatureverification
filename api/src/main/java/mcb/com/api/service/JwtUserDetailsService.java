@@ -1,6 +1,7 @@
 package mcb.com.api.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mcb.com.api.security.CustomUserDetails;
 import mcb.com.api.utils.MessageUtil;
 import mcb.com.domain.dto.response.exception.UserNotFoundException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service("userDetailsService")
 @RequiredArgsConstructor
+@Slf4j
 public class JwtUserDetailsService implements UserDetailsService {
 
     private final UsersRepo usersRepo;
