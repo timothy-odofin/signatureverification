@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
 })
 export class BaseUrlService {
 
-  _baseUrl: string = 'http://63.250.55.150:9599'
+  _baseUrl: string = 'http://localhost:9599'
 
   constructor() { }
 

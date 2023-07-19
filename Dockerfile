@@ -1,4 +1,19 @@
-# Use the official Maven image to build the application
+# Stage 1: Run tests
+FROM maven:3.8.4-openjdk-17 AS test
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Maven project file and download the dependencies
+COPY pom.xml .
+
+# Copy the entire source code
+COPY . .
+
+# Run tests
+RUN mvn test
+
+# Stage 2: Build the application
 FROM maven:3.8.4-openjdk-17 AS build
 
 # Set the working directory inside the container
@@ -11,9 +26,9 @@ COPY pom.xml .
 COPY . .
 
 # Build the application
-RUN mvn clean install -DskipTests
+RUN mvn clean package
 
-# Use the official OpenJDK 17 with HotSpot JVM image as the base image for the final container
+# Stage 3: Create the final container
 FROM openjdk:17-jdk
 
 # Set the working directory inside the container

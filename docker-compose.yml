@@ -1,11 +1,20 @@
 version: '3'
 
 services:
-  spring-boot-app:
-    container_name: signature_service
+  signvetapi:
+    container_name: signvetapi
     build:
-      context: .  # Directory containing the Spring Boot Dockerfile
+      context: .
       args:
-        JAVA_VERSION: 17  # Set the Java version as an argument to be used in Dockerfile
+        JAVA_VERSION: 17
     ports:
-      - "9599:9599"  # Map container port 8080 to host port 8080
+      - "9599:9599"
+
+  signvetapp:
+    container_name: signvetapp
+    build:
+      context: ./signature-verification  # Directory containing the Angular Dockerfile
+    ports:
+      - "8080:80"  # Map container port 80 (default for Nginx) to host port 8080
+    depends_on:
+      - signvetapi
