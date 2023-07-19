@@ -1,22 +1,16 @@
 package mcb.com.domain.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class EventSourceSummaryResponse {
     private String label;
-    private Long frequency;
+    private long frequency;
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public Long getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(Long frequency) {
-        this.frequency = frequency;
-    }
 }
