@@ -2,8 +2,10 @@ package mcb.com.api.utils;
 
 import mcb.com.common.SigUtils;
 import mcb.com.common.SignatureValidationInternal;
+import mcb.com.domain.dto.response.AuthTokenInfo;
 import mcb.com.domain.dto.response.EventSourceResponse;
 import mcb.com.domain.dto.response.EventSourceSummaryResponse;
+import mcb.com.domain.dto.response.LoginResponse;
 import mcb.com.domain.entity.Users;
 
 import java.util.LinkedHashSet;
@@ -49,7 +51,18 @@ public class TestData {
         user.setPid(UUID.fromString("8f016e8a-ffbe-4217-af9a-880ebad7d169"));
         return user;
     }
+public static LoginResponse loginData(){
+        return LoginResponse.builder()
+                .businessUnit("BU2")
+                .pid("a01f92d3-cc13-4d69-b0de-2537e0e6070a")
+                .firstName("Emily")
+                .lastName("Johnson")
+                .token(AuthTokenInfo.builder()
+                        .roles(List.of("ROLE_USER"))
+                        .build())
+                .build();
 
+}
     public static Users expectedNormalUser(){
         Users user = Users.builder()
                 .firstName("Emily")
