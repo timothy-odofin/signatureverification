@@ -2,16 +2,18 @@ package mcb.com.api.utils;
 
 import mcb.com.common.SigUtils;
 import mcb.com.common.SignatureValidationInternal;
-import mcb.com.domain.dto.response.AuthTokenInfo;
-import mcb.com.domain.dto.response.EventSourceResponse;
-import mcb.com.domain.dto.response.EventSourceSummaryResponse;
-import mcb.com.domain.dto.response.LoginResponse;
+import mcb.com.domain.dto.request.Login;
+import mcb.com.domain.dto.response.*;
 import mcb.com.domain.entity.Users;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import static mcb.com.api.utils.MessageUtil.SUCCESS;
 
 public class TestData {
     public static final String EVENT_SOURCE_PID="0f9dc6bf-19e5-4544-a904-2a28e99e0b54";
@@ -38,6 +40,14 @@ public class TestData {
                 .build());
 
     }
+    public static Login loginRequest(){
+
+        return Login.builder()
+                .password("test")
+                .username("john_smith123")
+                .build();
+
+    }
     public static Users expectedAdminUser(){
         Users user = Users.builder()
                 .firstName("John")
@@ -61,6 +71,10 @@ public static LoginResponse loginData(){
                         .roles(List.of("ROLE_USER"))
                         .build())
                 .build();
+
+}
+public static ResponseEntity<ApiResponse<LoginResponse>> loginResponse(){
+    return ResponseEntity.ok(new ApiResponse<>(SUCCESS, HttpStatus.OK.value(), loginData()));
 
 }
     public static Users expectedNormalUser(){

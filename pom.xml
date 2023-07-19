@@ -31,10 +31,12 @@
         <jwt-version>0.9.1</jwt-version>
         <swagger-version>2.9.2</swagger-version>
         <spring-dotenv-version>4.0.0</spring-dotenv-version>
+        <spring-security-test>5.5.3</spring-security-test>
     </properties>
     <dependencyManagement>
 
         <dependencies>
+
 
             <!-- LOCAL -->
             <dependency>
@@ -68,6 +70,12 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-bean-validators</artifactId>
                 <version>${swagger-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-test</artifactId>
+                <version>${spring-security-test}</version> <!-- Replace with your Spring Security version -->
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

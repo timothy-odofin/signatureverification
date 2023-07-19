@@ -76,7 +76,7 @@ public class ApplicationDataEvent implements ApplicationListener<ApplicationRead
         for(Users user: users){
             user.setPassword(passwordEncoder.encode("test"));
             user = usersRepo.save(user);
-            if(user.getAccountStatus().equals(Constant.HOD)){
+            if(user !=null && user.getAccountStatus().equals(Constant.HOD)){
                 UserRoles userRoles = new UserRoles();
                 userRoles.setPid(UUID.randomUUID());
                 userRoles.setUser(user);
