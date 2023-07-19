@@ -1,6 +1,5 @@
 package mcb.com.api.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -9,10 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import mcb.com.api.service.AppService;
 import mcb.com.api.utils.ApiPath;
 import mcb.com.api.utils.TestData;
-import mcb.com.domain.dto.request.EventSourceUpdateRequest;
-import mcb.com.domain.dto.request.StatusEnum;
 import mcb.com.domain.dto.request.ValidateSignatureRequest;
-import mcb.com.domain.dto.response.LoginResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,7 +27,6 @@ import static mcb.com.api.utils.MessageUtil.SIGNATURE_VALIDATION_SUCCESSFUL;
 import static mcb.com.api.utils.MessageUtil.SUCCESS;
 import static mcb.com.api.utils.TestData.*;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
