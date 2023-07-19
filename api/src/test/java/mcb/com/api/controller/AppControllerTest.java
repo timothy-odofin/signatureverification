@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import mcb.com.api.config.BaseControllerTest;
 import mcb.com.api.service.AppService;
 import mcb.com.api.utils.ApiPath;
 import mcb.com.api.utils.TestData;
@@ -36,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AppController.class)
-class AppControllerTest extends BaseControllerTest{
+class AppControllerTest extends BaseControllerTest {
     private ObjectMapper objectMapper;
 @MockBean
 private AppService appService;
@@ -93,22 +94,7 @@ private AppService appService;
                 .andExpect(jsonPath("$.data.signBase64Pdf").value(SIGN_PDF));
     }
 
-    @Test
-    @WithMockUser( roles = {"ADMINISTRATOR","USER", "SUPER"})
-    void test_that_validate_signature_return_success() throws Exception {
-        when(appService.validateSignature(any())).thenReturn(TestData.validateSignatureResponseData());
-        mockMvc.perform(post(ApiPath.ACCOUNT_PATH+ApiPath.VALIDATE_SIGNATURE_PATH)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(ValidateSignatureRequest.builder()
-                                        .eventAccountNumber(EVENT_DEPOSIT_ACCOUNT)
-                                        .eventSourcePid(UUID.fromString(EVENT_SOURCE_PID))
-                                .build())))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.signImage").value(validatedSign.getSignImage()))
-                .andExpect(jsonPath("$.message").value(SUCCESS))
-                .andExpect(jsonPath("$.code").value(HttpStatus.OK.value()));
 
-    }
 
     @Test
     @WithMockUser(roles = {"ADMINISTRATOR","USER", "SUPER"})
@@ -133,7 +119,22 @@ private AppService appService;
                 .andExpect(jsonPath("$.data").isArray())
                 .andExpect(jsonPath("$.data", hasSize(1)));
     }
+    @Test
+    @WithMockUser( roles = {"ADMINISTRATOR","USER", "SUPER"})
+    void test_that_validate_signature_return_success() throws Exception {
+        when(appService.validateSignature(any())).thenReturn(TestData.validateSignatureResponseData());
+        mockMvc.perform(post(ApiPath.ACCOUNT_PATH+ApiPath.VALIDATE_SIGNATURE_PATH)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(ValidateSignatureRequest.builder()
+                                .eventAccountNumber(EVENT_DEPOSIT_ACCOUNT)
+                                .eventSourcePid(UUID.fromString(EVENT_SOURCE_PID))
+                                .build())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.signImage").value(validatedSign.getSignImage()))
+                .andExpect(jsonPath("$.message").value(SUCCESS))
+                .andExpect(jsonPath("$.code").value(HttpStatus.OK.value()));
 
+    }
     @Test
     @WithMockUser(roles = "ADMINISTRATOR")
     void test_that_update_EventSource_return_success() throws Exception {

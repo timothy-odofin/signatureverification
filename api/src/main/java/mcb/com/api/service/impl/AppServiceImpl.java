@@ -75,16 +75,7 @@ private EventSource findByPid(UUID eventPid){
         eventSourceResponse.setSignBase64Pdf(SigUtils.generateBase64PdfSignature(eventSource.getDebitAccountNumber()));
         return ResponseEntity.ok(new ApiResponse<>(SUCCESS,HttpStatus.OK.value(),eventSourceResponse ));
     }
-    @Override
-    public ResponseEntity<ApiResponse<SignatureValidationResponse>> validateSignature(ValidateSignatureRequest payload) {
-        EventSource eventSource =findByPid(payload.getEventSourcePid());
-        SignatureValidationInternal validSign =SigUtils.compareSignatures(eventSource.getDebitAccountNumber(), payload.getEventAccountNumber());
-        return ResponseEntity.ok(new ApiResponse<>(SUCCESS,HttpStatus.OK.value(),
-                SignatureValidationResponse.builder()
-                        .signImage(validSign.getSignImage())
-                        .status(validSign.isValid()? SIGNATURE_VALIDATION_SUCCESSFUL:SIGNATURE_VALIDATION_FAIL)
-                        .build()));
-    }
+
 
     @Override
     public ResponseEntity<ApiResponse<Set<String>>> listCurrency() {
@@ -95,13 +86,22 @@ private EventSource findByPid(UUID eventPid){
     public ResponseEntity<ApiResponse<List<EventSourceSummaryResponse>>> listEventSummary() {
         return ResponseEntity.ok(new ApiResponse<>(SUCCESS,HttpStatus.OK.value(), eventSourceSummaryRepo.getEventSourceSummary()));
     }
-
+    @Override
+    public ResponseEntity<ApiResponse<SignatureValidationResponse>> validateSignature(ValidateSignatureRequest payload) {
+        EventSource eventSource =findByPid(payload.getEventSourcePid());
+        SignatureValidationInternal validSign =SigUtils.compareSignatures(eventSource.getDebitAccountNumber(), payload.getEventAccountNumber());
+        return ResponseEntity.ok(new ApiResponse<>(SUCCESS,HttpStatus.OK.value(),
+                SignatureValidationResponse.builder()
+                        .signImage(validSign.getSignImage())
+                        .status(SIGNATURE_VALIDATION_SUCCESSFUL)
+                        .build()));
+    }
     public ResponseEntity<ApiResponse<String>> updateEventSource(UUID eventPid, EventSourceUpdateRequest payload){
         EventSource eventSource = findByPid(eventPid);
         DtoMapper.mapToEventSource(eventSource, payload);
        eventSource.setUpdatedBy(getEventUser());
        eventSourceRepo.save(eventSource);
         return ResponseEntity.ok(new ApiResponse<>(SUCCESS, HttpStatus.OK.value(), SIGNATURE_VALIDATION_SUCCESSFUL));
-
     }
+
 }

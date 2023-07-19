@@ -1,4 +1,4 @@
-package mcb.com.api.controller;
+package mcb.com.api.config;
 
 import mcb.com.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;

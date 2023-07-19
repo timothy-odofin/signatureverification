@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -15,18 +14,10 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class EventSourceUpdateRequest {
     private String comments;
-    @NotNull
-    @NotEmpty
     private String transactionCurrency;
-    @Min(value=1)
     private double transactionAmount;
-    @Min(value=1)
     private double amountInMur;
-    @NotNull
-    @NotEmpty
     private String debitAccountNumber;
-    @NotNull
-    @NotEmpty
     private String debitAccountCcy;
     private String paymentDetails1;
     private String paymentDetails2;

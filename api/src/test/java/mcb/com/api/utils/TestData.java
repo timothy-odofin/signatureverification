@@ -6,7 +6,9 @@ import mcb.com.common.SignatureValidationInternal;
 import mcb.com.domain.dto.request.EventSourceUpdateRequest;
 import mcb.com.domain.dto.request.Login;
 import mcb.com.domain.dto.request.StatusEnum;
+import mcb.com.domain.dto.request.ValidateSignatureRequest;
 import mcb.com.domain.dto.response.*;
+import mcb.com.domain.entity.EventSource;
 import mcb.com.domain.entity.Users;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +21,22 @@ import java.util.UUID;
 import static mcb.com.api.utils.MessageUtil.*;
 
 public class TestData {
+    public static final String ADMIN_TOKEN="Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huX3NtaXRoMTIzIiwianRpIjoiOGYwMTZlOGEtZmZiZS00MjE3LWFmOWEtODgwZWJhZDdkMTY5Iiwicm9sZXMiOiJST0xFX0FETUlOSVNUUkFUT1IsUk9MRV9TVVBFUiIsImlhdCI6MTY4OTc5MDkwMSwiZXhwIjoxNjkxNTkwOTAxfQ.3lLZ4ZgrYpxRkPnnPxuSOuYpajut-efbpOql_TPmPQo";
+    public static final String BAD_TOKEN="Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huX3NtaXRoMTIzIiwianRpIjoiOGYwMTZlOGEtZmZiZS00MjE3LWFmOWEtODgwZWJhZDdkMTY5Iiwicm9sZXMiOiJST0TY4OTc5MDkwMSwiZXhwIjoxNjkxNTkwOTAxfQ.3lLZ4ZgrYpxRkPnnPxuSOuYpajut-efbpOql_TPmPQo";
+    public static final String USER_TOKEN="Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbWlseV84OSIsImp0aSI6ImEwMWY5MmQzLWNjMTMtNGQ2OS1iMGRlLTI1MzdlMGU2MDcwYSIsInJvbGVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjg5NzkxMTI0LCJleHAiOjE2OTE1OTExMjR9.TJ23QMzKV2ulJ8yDHgcs2nqYnCL4OjWVh7hWFzR6gu4";
     public static final String EVENT_SOURCE_PID="0f9dc6bf-19e5-4544-a904-2a28e99e0b54";
-    public static final String USER_PID="8f016e8a-ffbe-4217-af9a-880ebad7d169";
+    public static final String BAD_EVENT_SOURCE_PID=UUID.randomUUID().toString();
+    public static final String USER_PID="a01f92d3-cc13-4d69-b0de-2537e0e6070a";
+    public static final String ADMIN_PID="8f016e8a-ffbe-4217-af9a-880ebad7d169";
+
     public static final String EVENT_DEPOSIT_ACCOUNT="382105698742";
+    public static final String TOKEN_HEADER="Authorization";
     public static final String SIGN_PDF= SigUtils.generateBase64PdfSignature(EVENT_DEPOSIT_ACCOUNT);
     public static final SignatureValidationInternal validatedSign= SigUtils.compareSignatures(EVENT_DEPOSIT_ACCOUNT, EVENT_DEPOSIT_ACCOUNT);
+    public static final ValidateSignatureRequest validateSignatureRequest= ValidateSignatureRequest.builder()
+            .eventSourcePid(UUID.fromString(EVENT_SOURCE_PID))
+            .eventAccountNumber(EVENT_DEPOSIT_ACCOUNT)
+            .build();
     public static final EventSourceUpdateRequest eventSourceUpdateRequest=EventSourceUpdateRequest.builder()
             .actionStatus(StatusEnum.Proceed)
             .transactionAmount(3000)
@@ -32,8 +45,24 @@ public class TestData {
             .debitAccountNumber(EVENT_DEPOSIT_ACCOUNT)
             .debitAccountCcy("GBP")
             .verified("Yes")
-            .discrepancyReason("Test")
+            .discrepancyReason("Signature Missing")
             .comments("This is just a test")
+            .build();
+    public static final EventSource eventSourceToSave=EventSource.builder()
+            .status(StatusEnum.Proceed.name())
+            .transactionAmount(3000.0)
+            .amountInMur(1000.0)
+            .transactionCurrency("USD")
+            .debitAccountNumber(EVENT_DEPOSIT_ACCOUNT)
+            .debitAccountCcy("GBP")
+            .verified("Yes")
+            .discrepancyReason("Signature Missing")
+            .comments("This is just a test")
+            .businessKey(UUID.randomUUID().toString())
+            .application("Test")
+            .transactionCurrency("USD")
+            .transactionAmount(20.0)
+            .priority("1")
             .build();
 
   public static  ResponseEntity<ApiResponse<List<EventSourceSummaryResponse>>> listEventSummaryResponse(){
@@ -98,6 +127,22 @@ public class TestData {
 
         return Login.builder()
                 .password("test")
+                .username("john_smith123")
+                .build();
+
+    }
+    public static Login userLoginRequest(){
+
+        return Login.builder()
+                .password("test")
+                .username("emily_89")
+                .build();
+
+    }
+    public static Login invalidLoginRequest(){
+
+        return Login.builder()
+                .password("admin")
                 .username("john_smith123")
                 .build();
 

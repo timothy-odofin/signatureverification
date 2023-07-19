@@ -1,7 +1,6 @@
 package mcb.com.domain.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import org.hibernate.annotations.Type;
 
@@ -14,6 +13,9 @@ import java.util.UUID;
 @Table(name = "EVENT_SOURCE")
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class EventSource  extends BaseEntity{
 
     @Column(name = "business_key", nullable = false)

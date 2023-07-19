@@ -5,6 +5,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import mcb.com.domain.dto.response.ApiResponse;
 import mcb.com.domain.dto.response.exception.BadRequestException;
+import mcb.com.domain.dto.response.exception.RecordNotFounException;
 import mcb.com.domain.dto.response.exception.UserNotFoundException;
 import org.hibernate.PropertyAccessException;
 import org.springframework.http.HttpHeaders;
@@ -24,8 +25,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static mcb.com.api.utils.MessageUtil.FAIL;
-import static mcb.com.api.utils.MessageUtil.INTERNAL_ERROR;
+import static mcb.com.api.utils.MessageUtil.*;
 
 @ControllerAdvice
 @Slf4j
@@ -66,7 +66,10 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiResponse<String>> handlePropertyAccessException(PropertyAccessException exception, WebRequest webRequest) {
         return exceptionMessage(exception, webRequest,HttpStatus.INTERNAL_SERVER_ERROR.value(), INTERNAL_ERROR);
     }
-
+    @ExceptionHandler(RecordNotFounException.class)
+    public ResponseEntity<ApiResponse<String>> handleRecordNotFounException(RecordNotFounException exception, WebRequest webRequest) {
+        return exceptionMessage(exception, webRequest,HttpStatus.NOT_FOUND.value(), RECORD_NOT_FOUND);
+    }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ApiResponse<String>> handleBadRequestExceptions(BadRequestException exception, WebRequest webRequest) {
