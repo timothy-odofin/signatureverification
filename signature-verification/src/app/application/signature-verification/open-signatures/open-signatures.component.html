@@ -1,0 +1,140 @@
+
+<div class="top-section">
+  <div class="ml-2">
+    <button mat-button routerLink="/app/history">
+      <mat-icon>arrow_back</mat-icon> Back to History
+    </button>
+  </div>
+  <div  class="mr-2">
+    <button mat-button (click)="previousSignature()" [disabled]="!showPrevious" >
+      <mat-icon>arrow_left</mat-icon>
+      Previous Signature
+    </button>
+    &nbsp;
+    <button mat-button (click)="nextSignature()" [disabled]="!showNext">
+      <span>
+        Next Signature
+      </span>
+      <mat-icon>arrow_right</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- <div class=""> -->
+  <div class="page-wrapper flex-btw start">
+    <form class="form-section" [formGroup]="dataForm">
+
+      <h2>Signature Verification</h2>
+
+      <mat-form-field appearance="outline"  class="full-width">
+        <mat-label>Comment</mat-label>
+        <textarea matInput placeholder="Comment" formControlName="comments"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Document Reference</mat-label>
+        <input matInput type="text"
+          placeholder="Ref"  formControlName="dcpRef">
+      </mat-form-field>
+
+
+      <div class="section-text">Transfer Details</div>
+      <div class="flex-btw start">
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Currency</mat-label>
+            <mat-select required  formControlName="currency">
+              <mat-option *ngFor="let item of currencyList" [value]="item">{{item}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        &nbsp;
+        &nbsp;
+
+
+        <div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Amount</mat-label>
+
+              <input matInput type="number"
+                placeholder="0.00" formControlName="amount">
+            </mat-form-field>
+          </div>
+
+
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>{{this.dataForm.get('currency')?.value + ' ' + 'Equivalent'}}</mat-label>
+
+              <input matInput type="number"
+                placeholder="0.00" formControlName="equivAmount">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-text">Debit Account Details</div>
+      <div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Account Number</mat-label>
+          <input matInput type="number"
+            placeholder="Account number" formControlName="accountNumber">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Account Name</mat-label>
+
+          <input matInput type="text"
+            placeholder="Account name" formControlName="accountName">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Currency</mat-label>
+          <mat-select required  formControlName="accountCcy">
+            <mat-option *ngFor="let item of currencyList" [value]="item">{{item}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="section-text">Payment</div>
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput type="text"
+          placeholder="Payment 1"  formControlName="payment1">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput type="text"
+          placeholder="Payment 2" formControlName="payment2">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput type="text"
+          placeholder="Payment 3" formControlName="payment3">
+      </mat-form-field>
+
+      <div class="flex-center mt-1">
+        <button mat-flat-button color="primary" (click)="verify()"  [disabled]="dataForm.invalid">Verify Signature</button>
+      </div>
+    </form>
+
+
+    <mat-divider [vertical]="true" style="height: 75vh;
+    position: sticky;
+    top: 150px;"></mat-divider>
+
+
+    <div class="signature-section" *ngIf="image">
+      <iframe [src]="image"
+      style="width: 100%;
+        height:70vh"
+      frameborder="0"></iframe>
+    </div>
+  </div>
+
+<!-- </div> -->

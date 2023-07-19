@@ -1,0 +1,65 @@
+<div class="flex-end">
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div style="padding: 20px;" *ngIf="image">
+
+  <div class="flex-center image-holder" style="flex-direction: column;">
+    <h3 class="mb-3">Signature Image</h3>
+    <div>
+      <img [src]="image" alt="signature">
+    </div>
+  </div>
+
+  <form [formGroup]="signatureForm" class="mt-2">
+    <div  style="margin-left: 65px;">
+      <label id="example-radio-group-label">Is signature okay?</label> &nbsp;
+      <mat-radio-group aria-label="Select an option" formControlName="signature" color="primary">
+        <mat-radio-button value="Yes">Yes</mat-radio-button>
+        <mat-radio-button value="No">No</mat-radio-button>
+      </mat-radio-group>
+
+      <div>
+        <mat-form-field appearance="outline" style="width: 75%;">
+          <mat-label>Discrepancy Reason</mat-label>
+          <mat-select formControlName="discrepancy">
+            <mat-option value="Signature Missing">Signature Missing</mat-option>
+            <mat-option value="Signature differs from T24">Signature differs from T24</mat-option>
+            <mat-option value="Signature not recorded on T24">Signature not recorded on T24</mat-option>
+            <mat-option value="Signature wrongly scanned on T24">Signature wrongly scanned on T24</mat-option>
+            <mat-option value="Signature and name mismatch">Signature and name mismatch</mat-option>
+            <mat-option value="Signature illegible">Signature illegible</mat-option>
+            <mat-option value="One authorised Signature missing">One authorised Signature missing</mat-option>
+            <mat-option value="Signatory not authorised to sign on account/for limit amount as per signature power">
+              Signatory not authorised to sign on account/for limit amount as per signature power
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="error-style" *ngIf="errormsg != ''">{{errormsg}}</div>
+
+    <div class="flex-center mt-1">
+      <button mat-flat-button color="primary" (click)="verify('Proceed')" [disabled]="loading">
+        <span *ngIf="!loading">Proceed</span>
+        <div *ngIf="loading && actionType == 'proceed'" style="display: inline-block">
+          <mat-progress-spinner diameter="18" mode="indeterminate">
+          </mat-progress-spinner>
+        </div>
+      </button> &nbsp;
+      <button mat-flat-button color="warn" (click)="verify('Reject')" [disabled]="loading">
+        <span *ngIf="!loading">Reject</span>
+        <div *ngIf="loading && actionType == 'reject'" style="display: inline-block">
+          <mat-progress-spinner diameter="18" mode="indeterminate">
+          </mat-progress-spinner>
+        </div>
+      </button>
+    </div>
+
+  </form>
+
+
+</div>

@@ -1,0 +1,41 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar> <h2 class="flex-center">SVS</h2></mat-toolbar>
+    <mat-nav-list>
+      <div class="flex-vertical stretch" style="height:80vh">
+
+        <div>
+          <a mat-list-item *ngFor="let menu of navigationList"
+          routerLinkActive="link-active"
+          [routerLink]="menu.route">
+            {{menu.name}}
+          </a>
+        </div>
+
+        <div class="flex-vertical  flex-center">
+          <!-- <div class="avatar"></div> -->
+          <div class="name">{{fullName}}</div>
+          <div class="name">{{business}}</div>
+
+          <button mat-button color="warn" (click)="logout()"> <mat-icon>logout</mat-icon> Logout</button>
+        </div>
+      </div>
+
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="accent">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Signature Verification System</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

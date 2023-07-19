@@ -1,0 +1,47 @@
+.top-section {
+  position: sticky;
+  top: 64px;
+  width: 100%;
+  background: white;
+  display: flex;
+  height: 60px;
+  align-items: center;
+  z-index: 5;
+  box-shadow: 0 0 7px -1px #aaa;
+  justify-content: space-between;
+}
+
+.page-wrapper{
+  padding: 10px 20px 40px;
+
+}
+
+.section-text{
+  font-size: 17px;
+  margin: 23px 0;
+  padding-bottom: 10px;
+  color: #000000;
+  border-bottom: 1px solid #aaa;
+}
+
+.title{
+  font-size: 30px;
+  font-weight: 500;
+
+}
+
+.form-section{
+  width: 45%;
+}
+
+.signature-section{
+  width: 50%;
+  position: sticky;
+  top: 150px;
+}
+
+.frame{
+  width: 100%;
+  position: sticky;
+  top: 150px;
+}
