@@ -37,7 +37,15 @@ public class SigUtils {
 
             // Write the image to the PDF
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
-            contentStream.drawImage(LosslessFactory.createFromImage(document, image), 100, 100); // Adjust the position as needed
+
+// Get the height of the page
+            float pageHeight = page.getMediaBox().getHeight();
+
+// Assuming your image has a height of 'imageHeight', calculate the y-coordinate to place the image at the top
+            float imageHeight = 300; //
+            float yCoordinate = pageHeight - 100 - imageHeight; // Adjust the vertical position as needed
+
+            contentStream.drawImage(LosslessFactory.createFromImage(document, image), 100, yCoordinate); // Adjust the position as needed
             contentStream.close();
 
             // Save the PDF to ByteArrayOutputStream
@@ -52,8 +60,8 @@ public class SigUtils {
     }
     // Convert the binary digital signature to a graphical representation as an image
     public static BufferedImage binaryToImage(byte[] binaryData) {
-        int width = 120; // Image width (pixels)
-        int height = 120; //binaryData.length * 8 Image height (pixels)
+        int width = 300; // Image width (pixels)
+        int height = 300; //binaryData.length * 8 Image height (pixels)
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
 
