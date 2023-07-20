@@ -74,12 +74,100 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+This application provides a signature verification service. The backend API is built using Spring Boot and follows a microservices architecture. The front end is developed with Angular using Angular Material. Docker Compose is provided to orchestrate the deployment of both the frontend and backend into Docker.
 
-This project is a signature verification application, meaning it helps use verify and confirm their image signature after it must havebenn processed by the system.
+**Prerequisites**  
+Docker installed on your machine (if you want to use Docker Compose)  
+Node.js installed (if you want to run the API and Angular application separately)  
+Java Development Kit (JDK) installed (if you want to run the API and Angular application separately)  
+
+### Steps to Run the Application
+#### Option 1: Using Docker (Recommended)  
+Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/yourusername/signature-verification.git
+    
+cd signature-verification
+    
+```
+Build and run the application using Docker Compose:  
+
+```bash
+docker-compose up
+```
+
+This command will build the Docker images for both the API and the Angular front-end, and then it will start the containers.  
+Once the containers are up and running, you can access the application in your web browser:
+
+- Front-end (Angular): http://localhost:8080
+- API (Spring Boot): [Swagger](http://localhost:9599/swagger-ui.html)  
+
+To stop and remove the containers, use the following command:
+
+```bash
+docker-compose down
+```
 
 
-### Detailed Description
-The appplication is a multi-module project with each module addressing different concerns. They communicate by have the other one as a dependency within itself.
+
+
+    
+    Build the backend application using Maven:
+#### Option 2: Running the API and Angular Application Separately Backend (API)
+
+Navigate to the api directory in your project.
+
+
+Running the API (Spring Boot):
+Navigate to the api directory, Open a terminal in this directory.
+
+```bash
+cd api
+```
+Build and run the API using Maven:
+
+```bash
+mvn spring-boot:run
+```
+The API will be accessible at http://localhost:9599.
+
+#### Running the Angular Front-end:
+Navigate to the angular directory:
+
+```bash
+cd signature-verification/
+```
+Install the required dependencies:
+
+```bash
+npm install
+```
+
+Start the Angular development server:
+
+```agsl
+ng serve --port 8080
+```
+
+The Angular front-end will be accessible at http://localhost:8080.
+
+### Application Access
+Once the application is running, you can access the front-end in your web browser at http://localhost:8080. The API will be available at [Swagger](http://localhost:9599/swagger-ui.html)
+
+### Notes
+If you encounter any issues during the installation or running process, refer to the application's documentation or contact the developer for support.
+Make sure that ports 8080 and 9599 are not in use by other applications on your system.
+
+
+
+
+
+
+
+
+## Detailed Description
+The application is a multi-module project with each module addressing different concerns. They communicate by have the other one as a dependency within itself.
 The list of module are:
 - **Api**: Which is responsible for holding the endpoints, security, exception handling, mapper and application data initialization.
 - **Common**: This module simple contains the methods used in the project, such as the utility functions.
@@ -138,8 +226,11 @@ To run the project on the host machine, the following information will be requir
 
 ### Technologies Used
 * Programming Language(s) and Frameworks
+    * Angular 16 
     * Java 17
     * Spring 5.0/Spring boot 2.7
+    * Camunda
+    * Angular Material
 * Dependencies
     * jackson-datatype-jsr310
     * commons-lang3
@@ -156,7 +247,7 @@ To run the project on the host machine, the following information will be requir
 * Testing
     * Mockito
     * JUnit 5
-    * TestContainer
+   
 
 
 ### Testing
@@ -174,7 +265,11 @@ Test done on this application
 ![login](login.png)
 This is the application user interface, it is responsible for receiving requests and delivering responses to the server.
 To interact with it, you login as a user, and after which the logged in user will be able to access the dashboard.
-From the dashboard user can select which image to verify, the output is displyed in apdf file that comes up on the side of the dashboard. By default, the application comes with some data that will be displayed on the dashboard, the file responsible for that is located in the home directory of the application resource named `event-source.json`
+From the dashboard user can select which image to verify, the output is displayed in a pdf file that comes up on the side of the dashboard. By default, the application comes with some data that will be displayed on the dashboard, the file responsible for that is located in the home directory of the application resource named `event-source.json` 
+To start the UI, simply start the application using `docker-compose up`. This command starts up the application and makes sure the UI is ready available to be access.
+To access the web interface use the exposed angular port `http://localhost:8080`, there the login page will pop-up for authentication.  
+
+
 
 ## Security
 The application has a security that authenticates the user at the login page and is responsible for token validation using JWT tokens for the back and forth requests. The application is setup with some default user located in `user.json`. These user have the same password which is `test`
@@ -205,6 +300,7 @@ Odofin Timothy
 - [Twitter](https://twitter.com/JENDXOR)
 - [Email](mailto:odofintimothy@gmail.com)
 - [Github](https://github.com/timothy-odofin)
+- [LinkedIn](https://www.linkedin.com/in/jendxor/)
 
 
 Project Link: [https://github.com/timothy-odofin/signatureverification](https://github.com/timothy-odofin/signatureverification)
