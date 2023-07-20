@@ -1,5 +1,5 @@
 export class MessageUtil {
-  static TIMEOUT_DURATION: number = 8000;
+  static TIMEOUT_DURATION: number = 4000;
   static RESPONSE_SUCCESS: string = "Success";
   static SERVER_ERROR: string = 'Oops! We encountered an unexpected problem'
   static LOADING: string = 'Processing request...'

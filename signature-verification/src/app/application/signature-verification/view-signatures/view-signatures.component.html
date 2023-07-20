@@ -25,7 +25,20 @@
   <div class="page-wrapper flex-btw start">
     <form class="form-section" [formGroup]="dataForm">
 
-      <h2>Signature Verification</h2>
+      <div class="flex-el">
+        <h2>View Signature Verification</h2>
+
+        &nbsp;
+        &nbsp;
+
+        <div class="flex-center mt-1 verified" *ngIf="recordData?.verified == 'Yes' ">
+          <mat-icon>done</mat-icon> Signature Verified
+        </div>
+
+        <div class="flex-center mt-1 rejected" *ngIf="recordData?.verified == 'No' ">
+          <mat-icon>close</mat-icon> Signature Rejected
+        </div>
+      </div>
 
       <mat-form-field appearance="outline"  class="full-width">
         <mat-label>Comment</mat-label>

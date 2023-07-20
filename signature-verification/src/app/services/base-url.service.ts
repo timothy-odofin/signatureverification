@@ -1,13 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseUrlService {
 
-  _baseUrl: string = 'http://localhost:9599'
+  _baseUrl: string = environment.baseUrl
 
   constructor() { }
 

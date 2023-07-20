@@ -13,6 +13,24 @@
 
 .page-wrapper{
   padding: 10px 20px 40px;
+}
+
+.verified{
+  color: white;
+  background-color: green;
+  border-radius: 6px;
+  border: thin solid green;
+  width: 200px;
+  padding: 5px;
+}
+
+.rejected{
+  color: white;
+  background-color: crimson;
+  border-radius: 6px;
+  border: thin solid crimson;
+  width: 200px;
+  padding: 5px;
 
 }
 

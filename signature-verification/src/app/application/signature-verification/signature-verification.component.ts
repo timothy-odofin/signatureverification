@@ -83,7 +83,6 @@ export class SignatureVerificationComponent implements OnInit {
     let data = this.util.getFromStore(Constants.OPENDATA)
 
     this.router.navigateByUrl(`/app/history/open?pid=${data[0]['pid']}`)
-    console.log(this.selection.selected, 'selections');
   }
 
   viewRecords(){

@@ -21,7 +21,7 @@
         <mat-radio-button value="No">No</mat-radio-button>
       </mat-radio-group>
 
-      <div>
+      <div *ngIf="signatureForm.get('signature')?.value == 'No'">
         <mat-form-field appearance="outline" style="width: 75%;">
           <mat-label>Discrepancy Reason</mat-label>
           <mat-select formControlName="discrepancy">
@@ -43,14 +43,14 @@
     <div class="error-style" *ngIf="errormsg != ''">{{errormsg}}</div>
 
     <div class="flex-center mt-1">
-      <button mat-flat-button color="primary" (click)="verify('Proceed')" [disabled]="loading">
+      <button mat-flat-button color="primary" (click)="verify('Proceed')" [disabled]="loading || signatureForm.invalid">
         <span *ngIf="!loading">Proceed</span>
         <div *ngIf="loading && actionType == 'proceed'" style="display: inline-block">
           <mat-progress-spinner diameter="18" mode="indeterminate">
           </mat-progress-spinner>
         </div>
       </button> &nbsp;
-      <button mat-flat-button color="warn" (click)="verify('Reject')" [disabled]="loading">
+      <button mat-flat-button color="warn" (click)="verify('Reject')" [disabled]="loading || signatureForm.invalid">
         <span *ngIf="!loading">Reject</span>
         <div *ngIf="loading && actionType == 'reject'" style="display: inline-block">
           <mat-progress-spinner diameter="18" mode="indeterminate">

@@ -60,17 +60,17 @@ export class ViewSignaturesComponent {
 
   initiateForm(){
     this.dataForm = this.fb.group({
-      'comments': ['', Validators.required],
-      'dcpRef': ['', Validators.required],
-      'accountNumber': ['', Validators.compose([Validators.required, Validators.pattern("[0-9]{15}")])],
-      'accountName': ['', Validators.required],
-      'accountCcy': ['', Validators.required],
-      'currency': ['', Validators.required],
-      'amount': [0,  Validators.compose([Validators.required, Validators.pattern("^[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*$")])],
-      'equivAmount': [0,  Validators.compose([Validators.required, Validators.pattern("^[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*$")])],
-      'payment1': ['', Validators.required],
-      'payment2': ['', Validators.required],
-      'payment3': ['', Validators.required],
+      'comments': [{value:'', disabled:true}],
+      'dcpRef': [{value:'', disabled:true}],
+      'accountNumber': [{value:'', disabled:true}],
+      'accountName': [{value:'', disabled:true}],
+      'accountCcy': [{value:'', disabled:true}],
+      'currency': [{value:'', disabled:true}],
+      'amount': [{value:'', disabled:true}],
+      'equivAmount': [{value:'', disabled:true}],
+      'payment1': [{value:'', disabled:true}],
+      'payment2': [{value:'', disabled:true}],
+      'payment3': [{value:'', disabled:true}],
     })
   }
   setFormValues(){
@@ -118,22 +118,19 @@ export class ViewSignaturesComponent {
 
   nextSignature(){
     this.currentIndex = this.currentIndex + 1
-    console.log(this.currentIndex, ' next current');
-
-    this.router.navigateByUrl(`/app/history/open?pid=${this.selectedSignatures[this.currentIndex]['pid']}`)
+    this.router.navigateByUrl(`/app/history/view?pid=${this.selectedSignatures[this.currentIndex]['pid']}`)
+    this.pId = this.selectedSignatures[this.currentIndex]['pid']
     this.validateButtons()
     this.getSignatureRecord()
   }
 
 
   previousSignature(){
-    console.log(this.selectedSignatures[this.currentIndex - 1], 'prev guy');
     this.currentIndex = this.currentIndex - 1
-    console.log(this.currentIndex, 'prev current');
 
-    this.router.navigateByUrl(`/app/history/open?pid=${this.selectedSignatures[this.currentIndex]['pid']}`)
+    this.router.navigateByUrl(`/app/history/view?pid=${this.selectedSignatures[this.currentIndex]['pid']}`)
+    this.pId = this.selectedSignatures[this.currentIndex]['pid']
     this.validateButtons()
     this.getSignatureRecord()
-
   }
 }

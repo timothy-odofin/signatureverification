@@ -9,6 +9,8 @@ import { Constants, MessageUtil } from 'src/app/helpers/messages';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { VerifySignatureComponent } from './verify-signature/verify-signature.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-open-signatures',
@@ -39,7 +41,8 @@ export class OpenSignaturesComponent implements OnInit{
     private util:UtilService,
     private sanitize: DomSanitizer,
     private signatureService:SignatureService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar:MatSnackBar
     ){
 
     this.route.queryParams.subscribe(params => {
@@ -57,20 +60,14 @@ export class OpenSignaturesComponent implements OnInit{
       return val.pid == this.pId
     })
 
-
-
     this.currentIndex = this.selectedSignatures.indexOf(this.currentSignature)
-
-    console.log(this.currentIndex, 'current Index');
-
-
     this.validateButtons()
 
   }
 
   initiateForm(){
     this.dataForm = this.fb.group({
-      'comments': ['', Validators.required],
+      'comments': [''],
       'dcpRef': ['', Validators.required],
       'accountNumber': ['', Validators.compose([Validators.required, Validators.pattern("^[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*$")])],
       'accountName': ['', Validators.required],
@@ -102,7 +99,9 @@ export class OpenSignaturesComponent implements OnInit{
 
   getSignatureRecord() {
     this.loading = true;
-    this.signatureService.getEventSourceById(this.pId).subscribe({
+    this.signatureService.getEventSourceById(this.pId)
+    .pipe(take(1))
+    .subscribe({
       next: (res:any) => {
         this.loading = false;
         if (res['message'] == MessageUtil.RESPONSE_SUCCESS) {
@@ -122,7 +121,7 @@ export class OpenSignaturesComponent implements OnInit{
   }
 
   getCurrencies() {
-    this.loading = true;
+    // this.loading = true;
     this.signatureService.getCurrencies().subscribe({
       next: (res:any) => {
         this.loading = false;
@@ -134,7 +133,6 @@ export class OpenSignaturesComponent implements OnInit{
         }
       },
       error: (err) => {
-        this.loading = false;
         this.errormsg = MessageUtil.SERVER_ERROR
       },
     });
@@ -147,6 +145,7 @@ export class OpenSignaturesComponent implements OnInit{
     dialogConfig.minWidth = '35%';
     dialogConfig.width = '40%';
     dialogConfig.minHeight = '60vh';
+    dialogConfig.maxHeight = '80vh';
     dialogConfig.maxWidth = '100vw';
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
@@ -161,11 +160,13 @@ export class OpenSignaturesComponent implements OnInit{
     this.dialog
       .open(VerifySignatureComponent, dialogConfig)
       .afterClosed()
-      .subscribe((res: any) => {
-        // this.complianceStage = 'END';
+      .subscribe((res: string) => {
+        this.snackBar.open(res, 'Dismiss', {
+          duration : MessageUtil.TIMEOUT_DURATION
+        })
+        this.getSignatureRecord()
       });
   }
-
 
   validateButtons(){
     this.currentIndex == 0 ? this.showPrevious = false : this.showPrevious = true
@@ -174,20 +175,18 @@ export class OpenSignaturesComponent implements OnInit{
 
   nextSignature(){
     this.currentIndex = this.currentIndex + 1
-    console.log(this.currentIndex, ' next current');
-
     this.router.navigateByUrl(`/app/history/open?pid=${this.selectedSignatures[this.currentIndex]['pid']}`)
+    this.pId = this.selectedSignatures[this.currentIndex]['pid']
     this.validateButtons()
     this.getSignatureRecord()
   }
 
 
   previousSignature(){
-    console.log(this.selectedSignatures[this.currentIndex - 1], 'prev guy');
     this.currentIndex = this.currentIndex - 1
-    console.log(this.currentIndex, 'prev current');
 
     this.router.navigateByUrl(`/app/history/open?pid=${this.selectedSignatures[this.currentIndex]['pid']}`)
+    this.pId = this.selectedSignatures[this.currentIndex]['pid']
     this.validateButtons()
     this.getSignatureRecord()
 

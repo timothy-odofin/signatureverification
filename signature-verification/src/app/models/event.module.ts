@@ -41,7 +41,7 @@ export interface submitSignaturePayload{
   paymentDetails1: string,
   paymentDetails2: string,
   paymentDetails3: string,
-  paymentDetails4: string,
+  paymentDetails4?: string,
   transactionAmount: number,
   transactionCurrency: string,
   verified: string

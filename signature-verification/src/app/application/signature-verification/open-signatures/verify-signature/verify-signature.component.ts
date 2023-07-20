@@ -36,10 +36,9 @@ export class VerifySignatureComponent implements OnInit{
 
   ngOnInit(){
     this.validateSignatureRecord()
-
     this.signatureForm = this.fb.group({
       'signature': ['', Validators.required],
-      'discrepancy': ['', Validators.required],
+      'discrepancy': [''],
     })
   }
 
@@ -82,13 +81,12 @@ export class VerifySignatureComponent implements OnInit{
       actionStatus: this.actionType,
       amountInMur: this.dialogData?.form?.equivAmount,
       comments: this.dialogData?.form?.comments,
-      debitAccountCcy: this.dialogData?.form?.payment3,
-      debitAccountNumber: this.dialogData?.form?.accountCcy,
-      discrepancyReason: this.signatureForm.get('discrepancy')?.value,
+      debitAccountCcy: this.dialogData?.form?.accountCcy,
+      debitAccountNumber: this.dialogData?.form?.accountNumber,
+      discrepancyReason: this.signatureForm.get('discrepancy')?.value ? this.signatureForm.get('discrepancy')?.value : "N/A",
       paymentDetails1: this.dialogData?.form?.payment1,
       paymentDetails2: this.dialogData?.form?.payment2,
       paymentDetails3: this.dialogData?.form?.payment3,
-      paymentDetails4: '',
       transactionAmount: this.dialogData?.form?.amount,
       transactionCurrency: this.dialogData?.form?.currency,
       verified: this.signatureForm.get('signature')?.value

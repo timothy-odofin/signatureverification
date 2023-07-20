@@ -13,7 +13,7 @@ export class AutInterceptor implements HttpInterceptor{
     var authentication:string = ''
 
     if (token) {
-      authentication = token.token_type + token.access_token;
+      authentication = token.token_type + ' ' + token.access_token;
     }
     request = request.clone({
       setHeaders: {

@@ -13,10 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./application/application.module').then(m => m.ApplicationModule),
     canActivate : [authGuard]
   },
-  // {
-  //   path: '**',
-  //   redirectTo: '/'
-  // },
+  {
+    path: '**',
+    redirectTo: '/'
+  },
 ];
 
 @NgModule({

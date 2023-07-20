@@ -50,7 +50,6 @@ export class LoginComponent {
           this.appService.setLoginStatus(true)
           this.router.navigateByUrl('/app/history')
           this.loading = false
-          console.log(res['data'],'user');
         }
         else{
           this.loading = false

@@ -48,13 +48,4 @@ export class UtilService {
       return JSON.parse(store)
     }
   }
-
-  // setToken(data:string) {
-  //   this.saveToStore(Constants.TOKEN, data)
-  // }
-
-  // getToken() {
-  //   return this.getFromStore(Constants.TOKEN)
-  // }
-
 }
