@@ -69,7 +69,7 @@ private AppService appService;
     }
 
     @Test
-    @WithMockUser(roles = "SUPER")
+    @WithMockUser(roles = "ADMINISTRATOR")
     void test_that_list_user_return_success() throws Exception {
         when(appService.listUsers(anyInt(), anyInt())).thenReturn(TestData.listUserTestData());
         mockMvc.perform(get(ApiPath.ACCOUNT_PATH+ApiPath.LIST_USERS_PATH))

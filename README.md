@@ -100,8 +100,9 @@ docker-compose up
 This command will build the Docker images for both the API and the Angular front-end, and then it will start the containers.  
 Once the containers are up and running, you can access the application in your web browser:
 
-- Front-end (Angular): http://localhost:8080
+- Front-end (Angular): http://localhost:8080 
 - API (Spring Boot): [Swagger](http://localhost:9599/swagger-ui.html)  
+- Login Credentials: username: john_smith123 password: test 
 
 To stop and remove the containers, use the following command:
 
@@ -153,7 +154,8 @@ ng serve --port 8080
 The Angular front-end will be accessible at http://localhost:8080.
 
 ### Application Access
-Once the application is running, you can access the front-end in your web browser at http://localhost:8080. The API will be available at [Swagger](http://localhost:9599/swagger-ui.html)
+Once the application is running, you can access the front-end in your web browser at http://localhost:8080.
+The API will be available at [Swagger](http://localhost:9599/swagger-ui.html). Login Credentials: username: john_smith123 password: test
 
 ### Notes
 If you encounter any issues during the installation or running process, refer to the application's documentation or contact the developer for support.
