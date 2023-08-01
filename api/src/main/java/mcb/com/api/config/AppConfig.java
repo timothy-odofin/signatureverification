@@ -34,7 +34,7 @@ public class AppConfig implements WebMvcConfigurer {
                 .allowedMethods("HEAD",
                         "GET", "POST", "PUT", "DELETE", "PATCH")
                 .allowedOrigins("*")
-                .allowedHeaders("Authorization", "Cache-Control", "Content-Type");
+                .allowedHeaders("Authorization", "Cache-Control", "Content-Type","Access-Control-Allow-Origin");
 
     }
 

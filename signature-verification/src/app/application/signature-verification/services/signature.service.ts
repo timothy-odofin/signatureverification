@@ -39,7 +39,7 @@ export class SignatureService {
 
   submitSignature(params:string, payload: submitSignaturePayload): Observable<any> {
     return this.http
-    .post<any>(this.url + `/account/event-sources/${params}`, payload)
+    .post<any>(this.url + `/account/event-sources/update/${params}`, payload)
     .pipe(catchError((err) => this.base.errorHandler(err)));
   }
 

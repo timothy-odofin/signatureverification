@@ -70,11 +70,9 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiResponse<String>> handleRecordNotFounException(RecordNotFounException exception, WebRequest webRequest) {
         return exceptionMessage(exception, webRequest,HttpStatus.NOT_FOUND.value(), RECORD_NOT_FOUND);
     }
-
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ApiResponse<String>> handleBadRequestExceptions(BadRequestException exception, WebRequest webRequest) {
         return exceptionMessage(exception, webRequest,HttpStatus.BAD_REQUEST.value(), exception.getMessage());
-
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -89,29 +87,23 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         String error =
                 exception.getName() + " should be of type " + exception.getRequiredType().getName();
         return exceptionMessage(exception, webRequest, HttpStatus.BAD_REQUEST.value(), error);
-
     }
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ApiResponse<String>> handlerGlobalError(Exception exception, WebRequest webRequest) {
         return exceptionMessage(exception, webRequest,HttpStatus.INTERNAL_SERVER_ERROR.value(), INTERNAL_ERROR);
     }
-
-
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ApiResponse<String>> handleBadCredentialsException(BadCredentialsException exception, WebRequest webRequest) {
         return exceptionMessage(exception, webRequest, HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
-
     }
-
     @ExceptionHandler(ExpiredJwtException.class)
     public ResponseEntity<ApiResponse<String>> handleMalformedJwtException(ExpiredJwtException exception, WebRequest webRequest) {
         return exceptionMessage(exception, webRequest, HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
     }
-private static ResponseEntity<ApiResponse<String>> exceptionMessage(Exception exception, WebRequest webRequest, int statusCode, String errorMessage){
+  private static ResponseEntity<ApiResponse<String>> exceptionMessage(Exception exception, WebRequest webRequest, int statusCode, String errorMessage){
     log.warn("{} {} occurred through {}", Exception.class.getSimpleName().toUpperCase(), exception.getMessage(), webRequest==null?"":webRequest.getContextPath());
         return ResponseEntity.ok(new ApiResponse<>(FAIL, statusCode, errorMessage));
-
 }
 
 }
