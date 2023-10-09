@@ -1,25 +1,20 @@
 package mcb.com.api.security;
 
 import io.jsonwebtoken.*;
-import lombok.RequiredArgsConstructor;
-import mcb.com.api.service.JwtUserDetailsService;
-import mcb.com.persistence.UserRolesRepo;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.WebUtils;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 /**
@@ -28,8 +23,6 @@ import java.util.stream.Collectors;
 @Component
 public class TokenProvider implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
 
     @Value("${jwt.token.validity}")
     public long TOKEN_VALIDITY;

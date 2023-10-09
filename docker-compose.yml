@@ -6,7 +6,7 @@ services:
     build:
       context: .
       args:
-        JAVA_VERSION: 17
+        JAVA_VERSION: 11
     ports:
       - "9599:9599"
 
