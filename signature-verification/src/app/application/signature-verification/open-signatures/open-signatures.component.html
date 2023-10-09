@@ -1,21 +1,27 @@
 
+
 <div class="top-section">
   <div class="ml-2">
-    <button mat-button routerLink="/app/history">
-      <mat-icon>arrow_back</mat-icon> Back to History
+    <button mat-button routerLink="/app/history"
+            matTooltip="Back to History"
+            aria-label="Button that displays a tooltip when focused or hovered over">
+      <mat-icon>arrow_back</mat-icon>
     </button>
   </div>
-  <div  class="mr-2">
+  <div  class="mr-2 flex">
     <button mat-button (click)="previousSignature()" [disabled]="!showPrevious" >
       <mat-icon>arrow_left</mat-icon>
-      Previous Signature
+
+      Prev
     </button>
     &nbsp;
+    <span style="font-size:12px"> 1 of 10</span>
     <button mat-button (click)="nextSignature()" [disabled]="!showNext">
-      <span>
-        Next Signature
-      </span>
       <mat-icon>arrow_right</mat-icon>
+      <span>
+        Next
+      </span>
+
     </button>
   </div>
 </div>
