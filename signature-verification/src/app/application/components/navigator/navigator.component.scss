@@ -1,0 +1,16 @@
+.top-section {
+  position: sticky;
+  top: 64px;
+  width: 100%;
+  background: white;
+  display: flex;
+  height: 60px;
+  align-items: center;
+  z-index: 5;
+  box-shadow: 0 0 7px -1px #aaa;
+  justify-content: space-between;
+}
+.menu-top{
+  margin-top:20px;
+  box-shadow: none;
+}

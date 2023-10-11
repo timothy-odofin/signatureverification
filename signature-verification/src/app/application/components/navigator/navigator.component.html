@@ -1,0 +1,37 @@
+<div class="top-section">
+  <div class="ml-2">
+    <button mat-button [routerLink]="redirectUrl"
+            matTooltip="Back to History"
+            aria-label="Button that displays a tooltip when focused or hovered over">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>{{displayTitle}}</span>
+  </div>
+  <div  class="mr-2 flex" id="menu-top">
+    <mat-form-field class="menu-top">
+      <mat-select [(ngModel)]="currentIndex" disableRipple (ngModelChange)="onItemSelect($event)">
+        <mat-option *ngFor="let item of items; let i = index" [value]="i">
+          {{ item['sourceBU'] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    &nbsp;
+    <button mat-button (click)="nextItem()" [disabled]="!showNext">
+      <mat-icon>arrow_right</mat-icon>
+      <span>
+        Next
+      </span>
+
+    </button>
+    &nbsp;
+    <span style="font-size:12px">{{display}}</span>
+    <button mat-button (click)="previousItem()" [disabled]="!showPrevious" >
+      <mat-icon>arrow_left</mat-icon>
+      Prev
+    </button>
+
+  </div>
+</div>
+<ng-content>
+
+</ng-content>

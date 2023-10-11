@@ -8,6 +8,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ViewSignaturesComponent } from './signature-verification/view-signatures/view-signatures.component';
 import { OpenSignaturesComponent } from './signature-verification/open-signatures/open-signatures.component';
 import { VerifySignatureComponent } from './signature-verification/open-signatures/verify-signature/verify-signature.component';
+import {AppModule} from "../app.module";
+import {NavigatorComponent} from "./components/navigator/navigator.component";
 
 const route:Routes = [
   {
@@ -36,20 +38,21 @@ const route:Routes = [
 
 @NgModule({
   declarations: [
+    NavigatorComponent,
     NavigationComponent,
     SignatureVerificationComponent,
     ReportsComponent,
     ViewSignaturesComponent,
     OpenSignaturesComponent,
-    VerifySignatureComponent
+    VerifySignatureComponent,
 
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(route),
-    SharedModule
+    imports: [
+        CommonModule,
+        RouterModule.forChild(route),
+        SharedModule
 
-  ]
+    ]
 })
 
 export class ApplicationModule { }

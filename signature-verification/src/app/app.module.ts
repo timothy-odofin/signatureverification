@@ -12,7 +12,7 @@ import { AutInterceptor } from './interceptor/http.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +21,7 @@ import { AutInterceptor } from './interceptor/http.interceptor';
     SharedModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AutInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: AutInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

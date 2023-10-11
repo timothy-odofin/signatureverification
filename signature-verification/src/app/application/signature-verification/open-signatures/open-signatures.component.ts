@@ -32,6 +32,8 @@ export class OpenSignaturesComponent implements OnInit{
 
   currentSignature: any;
   currentIndex: number = 0;
+  redirectUrl:string='/app/history'
+  currentAction!:string
 
   constructor(
     private fb:FormBuilder,
@@ -55,13 +57,10 @@ export class OpenSignaturesComponent implements OnInit{
     this.getCurrencies()
     this.initiateForm()
 
-
+    //
     this.currentSignature = this.selectedSignatures.find((val:any) => {
       return val.pid == this.pId
     })
-
-    this.currentIndex = this.selectedSignatures.indexOf(this.currentSignature)
-    this.validateButtons()
 
   }
 
@@ -161,33 +160,28 @@ export class OpenSignaturesComponent implements OnInit{
       .open(VerifySignatureComponent, dialogConfig)
       .afterClosed()
       .subscribe((res: string) => {
+
         this.snackBar.open(res, 'Dismiss', {
           duration : MessageUtil.TIMEOUT_DURATION
         })
+        if(res ==='Success'){
+          this.currentAction=this.pId
         this.getSignatureRecord()
+        }
       });
   }
 
-  validateButtons(){
-    this.currentIndex == 0 ? this.showPrevious = false : this.showPrevious = true
-    this.currentIndex == this.selectedSignatures.length - 1 ? this.showNext = false : this.showNext = true
-  }
 
-  nextSignature(){
-    this.currentIndex = this.currentIndex + 1
-    this.router.navigateByUrl(`/app/history/open?pid=${this.selectedSignatures[this.currentIndex]['pid']}`)
-    this.pId = this.selectedSignatures[this.currentIndex]['pid']
-    this.validateButtons()
+  nextItem(currentId:string){
+    this.pId=currentId;
+    this.router.navigateByUrl(`/app/history/open?pid=${currentId}`)
     this.getSignatureRecord()
   }
 
 
-  previousSignature(){
-    this.currentIndex = this.currentIndex - 1
-
-    this.router.navigateByUrl(`/app/history/open?pid=${this.selectedSignatures[this.currentIndex]['pid']}`)
-    this.pId = this.selectedSignatures[this.currentIndex]['pid']
-    this.validateButtons()
+  previousItem(currentId:string){
+    this.pId=currentId;
+    this.router.navigateByUrl(`/app/history/open?pid=${currentId}`)
     this.getSignatureRecord()
 
   }

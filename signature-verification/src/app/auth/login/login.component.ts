@@ -34,10 +34,6 @@ export class LoginComponent {
 
   }
 
-  ngOnInit() {
-
-  }
-
   login() {
     const val = this.form.value
     this.loading = true
