@@ -8,7 +8,7 @@
     <span>Company: <b>ABC Company Ltd</b> | </span><span>Ref: <b>{{displayTitle}}</b></span>
   </div>
   <div  class="mr-2 flex" id="menu-top">
-    <mat-form-field class="menu-top">
+    <mat-form-field class="menu-top" appearance="outline">
       <mat-select [(ngModel)]="currentIndex" disableRipple (ngModelChange)="onItemSelect($event)">
         <mat-option *ngFor="let item of items; let i = index" [value]="i">
           {{ item['sourceBU'] }}
