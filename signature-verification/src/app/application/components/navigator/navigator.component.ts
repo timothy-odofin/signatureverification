@@ -34,9 +34,11 @@ export class NavigatorComponent implements OnInit, OnChanges {
       console.error(`Item with pid ${this.pId} not found in items array.`);
     }
   }
-  onItemSelect(event:number){
+  onItemSelect(event:any){
+  let value:number=Number(event["target"]["value"]);
+  this.currentIndex=value
     this.validateButtons();
-    this.nextItemEvent.emit(this.items[event]['pid']);
+    this.nextItemEvent.emit(this.items[value]['pid']);
   }
   ngOnChanges(changes: SimpleChanges) {
     if(changes['currentAction'] !==undefined){

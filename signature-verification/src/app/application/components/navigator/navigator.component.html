@@ -45,14 +45,13 @@
 
 
   <div class="menu-right">
-    <form action="">
-      <select id="select-menu"  [(ngModel)]="currentIndex"  (ngModelChange)="onItemSelect($event)">
+
+      <select id="select-menu"  [(ngModel)]="currentIndex"  (change)="onItemSelect($event)">
         <option *ngFor="let item of items; let i = index" [value]="i">
           {{ item['sourceBU'] }}
         </option>
 
       </select>
-    </form>
     <button class="btn-back" data-title="Next"  (click)="nextItem()" [disabled]="!showNext">
       <img src="assets/image/chevron-right.svg" alt="">
     </button>
