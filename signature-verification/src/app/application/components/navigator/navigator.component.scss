@@ -130,9 +130,11 @@ font-size:12px;
  color:#7E7E7E;
  }
 
-.disabled {
+button:disabled,
+button[disabled]{
   opacity: 0.2;
   cursor: not-allowed;
+  border: 1px solid #ccc;
 }
 
 
