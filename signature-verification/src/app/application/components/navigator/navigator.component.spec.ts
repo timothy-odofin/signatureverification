@@ -5,9 +5,6 @@ import { UtilService } from '../../../services/utilities';
 import { Constants } from '../../../helpers/messages';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 
 describe('NavigatorComponent', () => {
   let component: NavigatorComponent;
@@ -18,7 +15,7 @@ describe('NavigatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavigatorComponent],
-      imports: [RouterTestingModule,HttpClientTestingModule,MatIconModule,MatFormFieldModule,MatSelectModule],
+      imports: [RouterTestingModule,HttpClientTestingModule],
       providers: [UtilService],
     }).compileComponents();
   });

@@ -18,11 +18,17 @@
         </option>
 
       </select>
-    <button class="btn-back" data-title="Next"  (click)="nextItem()" [disabled]="!showNext" id="next">
+
+    <button class="btn-back" data-title="Next"  (click)="nextItem()" [disabled]="!showNext" id="next" [ngClass]="{'disabled': !showNext}">
       <img src="assets/image/chevron-right.svg" alt="">
     </button>
+
     <span style="" class="pagination"> {{display}}</span>
-    <button class="btn-back" data-title="Prev" (click)="previousItem()" [disabled]="!showPrevious" id="prev">
+
+
+
+    <button class="btn-back" data-title="Prev" (click)="previousItem()" [disabled]="!showPrevious" id="prev" [ngClass]="{'disabled': !showPrevious}">
+
       <img src="assets/image/chevron-left.svg" alt="">
     </button>
 
