@@ -36,7 +36,7 @@
 <div class="top-section">
   <div class="menu-top">
     <button class="btn-back" data-title="Back to history"  [routerLink]="redirectUrl">
-      <img src="assets/arrow-left.svg" alt="">
+      <img src="assets/image/arrow-left.svg" alt="">
     </button>
     <div class="company">
       <span class="company-title">Mode: <b>{{mode}}</b> | </span> <span class="company-ref"> Ref:   <b>{{displayTitle}}</b></span>
@@ -46,24 +46,21 @@
 
   <div class="menu-right">
     <form action="">
-      <select id="select-menu"  [(ngModel)]="currentIndex" disableRipple (ngModelChange)="onItemSelect($event)">
+      <select id="select-menu"  [(ngModel)]="currentIndex"  (ngModelChange)="onItemSelect($event)">
         <option *ngFor="let item of items; let i = index" [value]="i">
           {{ item['sourceBU'] }}
         </option>
 
       </select>
     </form>
-
-
-    <button class="btn-back" data-title="Prev" (click)="previousItem()" [disabled]="!showPrevious">
-      <img src="assets/chevron-left.svg" alt="">
-    </button>
-
-    <span style="font-size:12px; color:#7E7E7E; font-family: 'Roboto Mono', monospace;"> 1 of 2</span>
-
     <button class="btn-back" data-title="Next"  (click)="nextItem()" [disabled]="!showNext">
-      <img src="assets/chevron-right.svg" alt="">
+      <img src="assets/image/chevron-right.svg" alt="">
     </button>
+    <span style="font-size:12px; color:#7E7E7E; font-family: 'Roboto Mono', monospace;"> {{display}}</span>
+    <button class="btn-back" data-title="Prev" (click)="previousItem()" [disabled]="!showPrevious">
+      <img src="assets/image/chevron-left.svg" alt="">
+    </button>
+
   </div>
 
 </div>
