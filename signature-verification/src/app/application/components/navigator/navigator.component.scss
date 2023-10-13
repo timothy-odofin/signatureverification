@@ -1,20 +1,4 @@
-//.top-section {
-//  position: sticky;
-//  top: 64px;
-//  width: 100%;
-//  background: white;
-//  display: flex;
-//  height: 60px;
-//  align-items: center;
-//  z-index: 6;
-//  box-shadow: 0 0 7px -1px #aaa;
-//  justify-content: space-between;
-//}
-//.menu-top{
-//  margin-top:20px;
-//  box-shadow: none;
-//  border:none !important
-//}
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 *{
@@ -70,12 +54,9 @@ background:#eeeded;
   top: 20px;
   padding: 2px 6px;
   left: -10px;
-  /* transform: translate(50%,-50%) ; */
   white-space: nowrap;
-  /* padding: 20px; */
 }
 .company-title,.company-ref{
-  /* font-family: 'Roboto Mono', monospace; */
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   padding-right: 2px;
@@ -98,7 +79,7 @@ background:#eeeded;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-weight: 400;
-  font-family: 'Open Sans', sans-serif;
+
 }
 .menu-right{
   display: flex;
@@ -143,6 +124,10 @@ background-color: #eeeded;
 #prev:hover{
 background-color: #eeeded;
 }
+.pagination{
+font-size:12px;
+ color:#7E7E7E;
+ }
 
 
 
