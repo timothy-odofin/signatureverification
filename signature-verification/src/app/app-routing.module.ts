@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { authGuard } from './guard/auth.guard';
+import {NavigatorComponent} from './application/components/navigator/navigator.component';
+
 
 const routes: Routes = [
   {
@@ -17,6 +19,7 @@ const routes: Routes = [
     path: '**',
     redirectTo: '/'
   },
+
 ];
 
 @NgModule({

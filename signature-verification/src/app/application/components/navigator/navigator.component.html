@@ -52,11 +52,11 @@
         </option>
 
       </select>
-    <button class="btn-back" data-title="Next"  (click)="nextItem()" [disabled]="!showNext">
+    <button class="btn-back" data-title="Next"  (click)="nextItem()" [disabled]="!showNext" id="next">
       <img src="assets/image/chevron-right.svg" alt="">
     </button>
-    <span style="font-size:12px; color:#7E7E7E; font-family: 'Roboto Mono', monospace;"> {{display}}</span>
-    <button class="btn-back" data-title="Prev" (click)="previousItem()" [disabled]="!showPrevious">
+    <span style="font-size:12px; color:#7E7E7E;  font-family: 'Open Sans', sans-serif;"> {{display}}</span>
+    <button class="btn-back" data-title="Prev" (click)="previousItem()" [disabled]="!showPrevious" id="prev">
       <img src="assets/image/chevron-left.svg" alt="">
     </button>
 
