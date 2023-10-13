@@ -1,17 +1,119 @@
+//.top-section {
+//  position: sticky;
+//  top: 64px;
+//  width: 100%;
+//  background: white;
+//  display: flex;
+//  height: 60px;
+//  align-items: center;
+//  z-index: 6;
+//  box-shadow: 0 0 7px -1px #aaa;
+//  justify-content: space-between;
+//}
+//.menu-top{
+//  margin-top:20px;
+//  box-shadow: none;
+//  border:none !important
+//}
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+}
 .top-section {
   position: sticky;
   top: 64px;
-  width: 100%;
-  background: white;
+  /* width: 100%; */
+  background-color: white;
+  padding: 5px 15px;
   display: flex;
-  height: 60px;
+  height: 46px;
   align-items: center;
-  z-index: 5;
+  z-index: 6;
   box-shadow: 0 0 7px -1px #aaa;
   justify-content: space-between;
+  border: none;
+  outline: none;
+
+  /* border-style: solid; */
+  border-left: 3px solid;
+  border-left-color: #FF9125;
 }
-.menu-top{
-  margin-top:20px;
-  box-shadow: none;
-  border:none !important;
+
+.btn-back {
+  cursor: default;
+  position: relative;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  background-color: #fff;
+
+}
+
+.btn-back>img {
+  width: 20px;
+}
+
+
+.btn-back:hover::before {
+  position: absolute;
+  content: attr(data-title);
+  background-color: rgb(48, 48, 48);
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  top: 20px;
+  padding: 2px 6px;
+  left: -10px;
+  /* transform: translate(50%,-50%) ; */
+  white-space: nowrap;
+  /* padding: 20px; */
+}
+.company-title,.company-ref{
+  /* font-family: 'Roboto Mono', monospace; */
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  padding-right: 2px;
+}
+.company{
+  display: flex;
+  align-items: center;
+  margin-top: -5px;
+}
+.menu-top {
+  display: flex;
+  align-items: center;
+}
+
+
+
+#select-menu{
+  padding: 5px 25px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: 400;
+  font-family: 'Open Sans', sans-serif;
+}
+.menu-right{
+  display: flex;
+  align-items: center;
+}
+.mode{
+  display: flex;
+  gap: 5px;
+  font-family: 'Open Sans', sans-serif;
+  align-items: center;
+
+}
+.mode > span{
+  font-size: 12px;
+  color: #7E7E7E;
+  font-weight: bolder;
+
+}
+.mode > img{
+  width: 15px;
 }

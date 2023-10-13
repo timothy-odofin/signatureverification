@@ -1,36 +1,75 @@
+<!--<div class="top-section">-->
+<!--  <div class="ml-2">-->
+<!--    <button mat-button [routerLink]="redirectUrl"-->
+<!--            matTooltip="Back to History"-->
+<!--            aria-label="Button that displays a tooltip when focused or hovered over">-->
+<!--      <mat-icon>arrow_back</mat-icon>-->
+<!--    </button>-->
+<!--    <span>Company: <b>ABC Company Ltd</b> | </span><span>Ref: <b>{{displayTitle}}</b></span>-->
+<!--  </div>-->
+<!--  <div  class="mr-2 flex" id="menu-top">-->
+<!--    <mat-form-field class="menu-top" appearance="outline">-->
+<!--      <mat-select [(ngModel)]="currentIndex" disableRipple (ngModelChange)="onItemSelect($event)">-->
+<!--        <mat-option *ngFor="let item of items; let i = index" [value]="i">-->
+<!--          {{ item['sourceBU'] }}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+<!--    &nbsp-->
+<!--    <button mat-button (click)="nextItem()" [disabled]="!showNext">-->
+<!--      <mat-icon>arrow_right</mat-icon>-->
+<!--      <span>-->
+<!--        Next-->
+<!--      </span>-->
+
+<!--    </button>-->
+<!--    &nbsp;-->
+<!--    <span style="font-size:12px">{{display}}</span>-->
+<!--    <button mat-button (click)="previousItem()" [disabled]="!showPrevious" >-->
+<!--      <mat-icon>arrow_left</mat-icon>-->
+<!--      Prev-->
+<!--    </button>-->
+
+<!--  </div>-->
+<!--</div>-->
+
 <div class="top-section">
-  <div class="ml-2">
-    <button mat-button [routerLink]="redirectUrl"
-            matTooltip="Back to History"
-            aria-label="Button that displays a tooltip when focused or hovered over">
-      <mat-icon>arrow_back</mat-icon>
+  <div class="menu-top">
+    <button class="btn-back" data-title="Back to history"  [routerLink]="redirectUrl">
+      <img src="../../signature-verification/src/assets/image/arrow-left.svg" alt="">
     </button>
-    <span>Company: <b>ABC Company Ltd</b> | </span><span>Ref: <b>{{displayTitle}}</b></span>
+    <div class="company">
+      <span class="company-title">Company: <b>Abc Company Ltd </b> | </span> <span class="company-ref"> Ref:   <b>{{displayTitle}}</b></span>
+    </div>
   </div>
-  <div  class="mr-2 flex" id="menu-top">
-    <mat-form-field class="menu-top" appearance="outline">
-      <mat-select [(ngModel)]="currentIndex" disableRipple (ngModelChange)="onItemSelect($event)">
-        <mat-option *ngFor="let item of items; let i = index" [value]="i">
+
+  <div class="mode">
+    <img src="view.svg" alt="">
+    <span>View</span>
+  </div>
+
+  <div class="menu-right">
+    <form action="">
+      <select id="select-menu"  [(ngModel)]="currentIndex" disableRipple (ngModelChange)="onItemSelect($event)">
+        <option *ngFor="let item of items; let i = index" [value]="i">
           {{ item['sourceBU'] }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    &nbsp;
-    <button mat-button (click)="nextItem()" [disabled]="!showNext">
-      <mat-icon>arrow_right</mat-icon>
-      <span>
-        Next
-      </span>
+        </option>
 
-    </button>
-    &nbsp;
-    <span style="font-size:12px">{{display}}</span>
-    <button mat-button (click)="previousItem()" [disabled]="!showPrevious" >
-      <mat-icon>arrow_left</mat-icon>
-      Prev
+      </select>
+    </form>
+
+
+    <button class="btn-back" data-title="Prev" (click)="previousItem()" [disabled]="!showPrevious">
+      <img src="../../signature-verification/src/assets/image/chevron-left.svg" alt="">
     </button>
 
+    <span style="font-size:12px; color:#7E7E7E; font-family: 'Roboto Mono', monospace;"> 1 of 2</span>
+
+    <button class="btn-back" data-title="Next"  (click)="nextItem()" [disabled]="!showNext">
+      <img src="../../signature-verification/src/assets/image/chevron-right.svg" alt="">
+    </button>
   </div>
+
 </div>
 <ng-content>
 
