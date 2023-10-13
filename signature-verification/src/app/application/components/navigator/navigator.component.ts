@@ -13,6 +13,7 @@ export class NavigatorComponent implements OnInit, OnChanges {
   @Input() pId!: string;
   @Input() currentAction!: string
   @Input() displayTitle!: string
+  @Input() mode!:string
   @Output() nextItemEvent = new EventEmitter<string>();
   @Output() previousItemEvent = new EventEmitter<string>();
   showPrevious = false;

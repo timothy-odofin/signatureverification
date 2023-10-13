@@ -36,17 +36,13 @@
 <div class="top-section">
   <div class="menu-top">
     <button class="btn-back" data-title="Back to history"  [routerLink]="redirectUrl">
-      <img src="../../signature-verification/src/assets/image/arrow-left.svg" alt="">
+      <img src="assets/arrow-left.svg" alt="">
     </button>
     <div class="company">
-      <span class="company-title">Company: <b>Abc Company Ltd </b> | </span> <span class="company-ref"> Ref:   <b>{{displayTitle}}</b></span>
+      <span class="company-title">Mode: <b>{{mode}}</b> | </span> <span class="company-ref"> Ref:   <b>{{displayTitle}}</b></span>
     </div>
   </div>
 
-  <div class="mode">
-    <img src="view.svg" alt="">
-    <span>View</span>
-  </div>
 
   <div class="menu-right">
     <form action="">
@@ -60,13 +56,13 @@
 
 
     <button class="btn-back" data-title="Prev" (click)="previousItem()" [disabled]="!showPrevious">
-      <img src="../../signature-verification/src/assets/image/chevron-left.svg" alt="">
+      <img src="assets/chevron-left.svg" alt="">
     </button>
 
     <span style="font-size:12px; color:#7E7E7E; font-family: 'Roboto Mono', monospace;"> 1 of 2</span>
 
     <button class="btn-back" data-title="Next"  (click)="nextItem()" [disabled]="!showNext">
-      <img src="../../signature-verification/src/assets/image/chevron-right.svg" alt="">
+      <img src="assets/chevron-right.svg" alt="">
     </button>
   </div>
 
