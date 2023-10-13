@@ -118,6 +118,7 @@ background:#eeeded;
   font-weight: bolder;
 
 }
+
 .mode > img{
  width: 10px;
   height:10px;
@@ -144,7 +145,10 @@ background-color: #eeeded;
 background-color: #eeeded;
 }
 
-
+.disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
 
 
 
